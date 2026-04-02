@@ -14,11 +14,24 @@ interface Message {
 
 export const Chatbot: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [navMenuOpen, setNavMenuOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation();
+
+  // Hide chatbot when mobile nav menu opens
+  useEffect(() => {
+    const handleNavOpen = () => setNavMenuOpen(true);
+    const handleNavClose = () => setNavMenuOpen(false);
+    window.addEventListener('lia:navmenu:open', handleNavOpen);
+    window.addEventListener('lia:navmenu:close', handleNavClose);
+    return () => {
+      window.removeEventListener('lia:navmenu:open', handleNavOpen);
+      window.removeEventListener('lia:navmenu:close', handleNavClose);
+    };
+  }, []);
 
   // Initialize chat session
   const chatRef = useRef<any>(null);
@@ -113,13 +126,13 @@ export const Chatbot: React.FC = () => {
   return (
     <>
       <AnimatePresence>
-        {!isOpen && (
+        {!isOpen && !navMenuOpen && (
           <motion.button
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
             onClick={() => setIsOpen(true)}
-            className="fixed bottom-28 md:bottom-8 right-6 p-3 bg-lia-navy text-white rounded-full shadow-2xl hover:bg-lia-navy/90 hover:scale-110 active:scale-95 transition-all z-50 flex items-center justify-center border-4 border-white/10 backdrop-blur-md"
+            className="fixed bottom-28 md:bottom-8 right-6 p-3 bg-lia-navy text-white rounded-full shadow-2xl hover:bg-lia-navy/90 hover:scale-110 active:scale-95 transition-all z-40 flex items-center justify-center border-4 border-white/10 backdrop-blur-md"
           >
             <div className="bg-white p-1 rounded-full shadow-sm flex items-center justify-center">
               <img 

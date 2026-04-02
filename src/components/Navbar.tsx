@@ -8,6 +8,11 @@ export const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
+
+  const toggleMenu = (open: boolean) => {
+    setIsOpen(open);
+    window.dispatchEvent(new Event(open ? 'lia:navmenu:open' : 'lia:navmenu:close'));
+  };
   const { t, i18n } = useTranslation();
   const location = useLocation();
 
@@ -168,7 +173,7 @@ export const Navbar: React.FC = () => {
             </Link>
             {/* Hamburger */}
             <button
-              onClick={() => setIsOpen(!isOpen)}
+              onClick={() => toggleMenu(!isOpen)}
               className={`p-2 rounded-xl transition-colors ${scrolled ? 'text-lia-navy bg-slate-100' : 'text-white bg-white/10 backdrop-blur-md'}`}
               aria-label="Abrir menu"
             >
@@ -185,55 +190,78 @@ export const Navbar: React.FC = () => {
             initial={{ opacity: 0, x: '100%' }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
-            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed inset-0 z-[70] md:hidden bg-[#003366] flex flex-col p-8 pt-24 overflow-y-auto"
+            transition={{ type: 'spring', damping: 28, stiffness: 220 }}
+            className="fixed inset-0 z-[200] md:hidden bg-[#003366] flex flex-col"
           >
+            {/* Close Button */}
             <button 
-              onClick={() => setIsOpen(false)}
-              className="absolute top-8 right-8 text-white p-2 hover:bg-white/10 rounded-full transition-colors"
-              title="Fechar menu"
+              onClick={() => toggleMenu(false)}
+              className="absolute top-5 right-5 w-10 h-10 text-white flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 active:scale-90 transition-all"
               aria-label="Fechar menu"
             >
-              <X size={28} />
+              <X size={22} />
             </button>
-            <div className="flex flex-col space-y-8 my-auto">
-              {navLinks.map((link) => (
-                <Link
+
+            {/* Logo at top */}
+            <div className="flex items-center space-x-3 px-8 pt-8 pb-4">
+              <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center p-1">
+                <img src="/logo.png" alt="LIA" className="w-full h-full object-contain" />
+              </div>
+              <span className="text-white font-black text-xl tracking-tight">LIA</span>
+            </div>
+
+            <div className="h-px bg-white/10 mx-8" />
+
+            {/* Nav Links */}
+            <div className="flex flex-col px-8 py-8 space-y-6 flex-1 justify-center">
+              {navLinks.map((link, i) => (
+                <motion.div
                   key={link.path}
-                  to={link.path}
-                  onClick={() => setIsOpen(false)}
-                  className={`text-4xl font-black transition-colors ${
-                    isActive(link.path) ? 'text-lia-red' : 'text-white'
-                  }`}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.06 }}
                 >
-                  {link.name}
-                </Link>
+                  <Link
+                    to={link.path}
+                    onClick={() => toggleMenu(false)}
+                    className={`block text-4xl font-black transition-colors py-1 ${
+                      isActive(link.path) ? 'text-lia-red' : 'text-white hover:text-white/70'
+                    }`}
+                  >
+                    {link.name}
+                  </Link>
+                </motion.div>
               ))}
-              <div className="h-px bg-white/10 my-2" />
+            </div>
+
+            {/* Bottom Section */}
+            <div className="px-8 pb-10 space-y-4">
+              <div className="h-px bg-white/10" />
+              {/* Portal Button */}
               <Link
                 to="/erp"
-                onClick={() => setIsOpen(false)}
-                className="flex items-center justify-center space-x-3 bg-white text-lia-navy px-6 py-4 rounded-2xl text-lg font-black shadow-xl active:scale-95 transition-transform"
+                onClick={() => toggleMenu(false)}
+                className="flex items-center justify-center space-x-3 bg-white text-lia-navy px-6 py-4 rounded-2xl font-black shadow-xl active:scale-95 transition-transform"
               >
                 <User size={20} />
                 <span>{t('nav.parentPortal')}</span>
               </Link>
-            </div>
-            
-            <div className="mt-auto grid grid-cols-2 gap-3 pb-8">
-              {['pt', 'en', 'fr', 'ar'].map((lang) => (
-                <button
-                  key={lang}
-                  onClick={() => changeLanguage(lang)}
-                  className={`uppercase text-xs font-black py-3 rounded-xl transition-all border ${
-                    i18n.language === lang 
-                      ? 'bg-lia-red text-white border-transparent shadow-lg' 
-                      : 'bg-white/5 text-white border-white/10 active:bg-white/10'
-                  }`}
-                >
-                  {lang === 'ar' ? 'العربية' : lang}
-                </button>
-              ))}
+              {/* Language Switcher */}
+              <div className="grid grid-cols-4 gap-2">
+                {['pt', 'en', 'fr', 'ar'].map((lang) => (
+                  <button
+                    key={lang}
+                    onClick={() => changeLanguage(lang)}
+                    className={`uppercase text-xs font-black py-2.5 rounded-xl transition-all border ${
+                      i18n.language === lang 
+                        ? 'bg-lia-red text-white border-transparent shadow-lg' 
+                        : 'bg-white/5 text-white/70 border-white/10 hover:bg-white/10'
+                    }`}
+                  >
+                    {lang === 'ar' ? 'ع' : lang}
+                  </button>
+                ))}
+              </div>
             </div>
           </motion.div>
         )}
