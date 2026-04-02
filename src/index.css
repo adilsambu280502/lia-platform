@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  
+  /* Brand Colors */
+  --color-lia-navy: #003366;
+  --color-lia-red: #E31E24;
+  --color-lia-red-dark: #c41a1f;
+  --color-lia-accent: #F1F5F9;
+  
+  /* Custom Animations */
+  --animate-float: float 3s ease-in-out infinite;
+  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+}
+
+@layer base {
+  body {
+    @apply font-sans text-slate-900 antialiased selection:bg-lia-red selection:text-white bg-white overflow-x-hidden;
+  }
+
+  /* Premium Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-slate-50;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-slate-300 rounded-full border-2 border-slate-50 hover:bg-lia-navy transition-colors;
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-white/70 backdrop-blur-md border border-white/20;
+  }
+  
+  .glass-dark {
+    @apply bg-lia-navy/80 backdrop-blur-lg border border-white/10;
+  }
+  
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-lia-navy to-lia-red;
+  }
+
+  .shadow-premium {
+    box-shadow: 0 20px 40px -15px rgba(0, 51, 102, 0.1);
+  }
+  
+  .shadow-premium-hover {
+    box-shadow: 0 30px 60px -12px rgba(0, 51, 102, 0.15);
+  }
+}
