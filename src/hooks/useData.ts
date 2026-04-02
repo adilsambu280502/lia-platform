@@ -30,7 +30,7 @@ export interface MockData {
   siteContent: SiteContent;
 }
 
-const SCHEMA_VERSION = '1.1'; // Update this to force-clear older caches
+const SCHEMA_VERSION = '1.2'; // Update this to force-clear older caches
 
 const INITIAL_NEWS: NewsItem[] = [
   { id: 1, title: 'LIA recebe Certificação Cambridge', date: '2026-03-28', category: 'Académico', image: '/images/home-news-1.jpg' },

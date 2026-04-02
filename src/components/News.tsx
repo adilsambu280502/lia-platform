@@ -24,8 +24,8 @@ export const News: React.FC = () => {
     switch (id.toString()) {
       case '1': return 'academic';
       case '2': return 'admissions';
-      case '3': return 'sports';
-      case '4': return 'events';
+      case '3': return 'activities';
+      case '4': return 'arts_category';
       default: return 'academic';
     }
   };
