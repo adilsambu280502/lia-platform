@@ -13,6 +13,13 @@ export const Navbar: React.FC = () => {
     setIsOpen(open);
     window.dispatchEvent(new Event(open ? 'lia:navmenu:open' : 'lia:navmenu:close'));
   };
+
+  // Scroll to top when clicking home link or logo
+  const handleNavClick = (path: string) => {
+    if (path === '/') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
   const { t, i18n } = useTranslation();
   const location = useLocation();
 
@@ -58,7 +65,7 @@ export const Navbar: React.FC = () => {
           <Link 
             to="/" 
             className="flex-shrink-0 flex items-center group transition-transform hover:scale-105"
-            onClick={() => setIsOpen(false)}
+            onClick={() => { setIsOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
           >
             <div className="flex items-center gap-4">
               <img 
@@ -75,6 +82,7 @@ export const Navbar: React.FC = () => {
               <Link
                 key={link.path}
                 to={link.path}
+                onClick={() => handleNavClick(link.path)}
                 className={`text-sm font-bold tracking-tight transition-all relative py-2 group ${
                   isActive(link.path)
                     ? 'text-lia-red'
@@ -223,7 +231,7 @@ export const Navbar: React.FC = () => {
                 >
                   <Link
                     to={link.path}
-                    onClick={() => toggleMenu(false)}
+                    onClick={() => { toggleMenu(false); handleNavClick(link.path); }}
                     className={`block text-4xl font-black transition-colors py-1 ${
                       isActive(link.path) ? 'text-lia-red' : 'text-white hover:text-white/70'
                     }`}
