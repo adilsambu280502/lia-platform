@@ -495,6 +495,7 @@ export const ERP: React.FC<ERPProps> = ({ onLogout }) => {
           activeTab={activeTab} 
           setActiveTab={setActiveTab} 
           menuItems={menuItems}
+          onLogout={onLogout}
         >
           {mainContent}
         </ERPMobileLayout>

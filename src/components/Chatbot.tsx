@@ -119,7 +119,7 @@ export const Chatbot: React.FC = () => {
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
             onClick={() => setIsOpen(true)}
-            className="fixed bottom-6 right-6 p-3 bg-[#003366] text-white rounded-full shadow-2xl hover:bg-[#002244] transition-colors z-50 flex items-center justify-center"
+            className="fixed bottom-28 md:bottom-8 right-6 p-3 bg-lia-navy text-white rounded-full shadow-2xl hover:bg-lia-navy/90 hover:scale-110 active:scale-95 transition-all z-50 flex items-center justify-center border-4 border-white/10 backdrop-blur-md"
           >
             <div className="bg-white p-1 rounded-full shadow-sm flex items-center justify-center">
               <img 
@@ -138,7 +138,7 @@ export const Chatbot: React.FC = () => {
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="fixed bottom-6 right-6 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl overflow-hidden z-50 flex flex-col border border-gray-100"
+            className="fixed bottom-28 md:bottom-8 right-6 w-[calc(100vw-3rem)] sm:w-96 bg-white rounded-3xl shadow-2xl overflow-hidden z-[70] flex flex-col border border-gray-100"
             style={{ height: '500px', maxHeight: '80vh' }}
           >
             {/* Header */}

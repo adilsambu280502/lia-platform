@@ -37,13 +37,13 @@ export const ERPMobileLayout: React.FC<ERPMobileLayoutProps> = ({
   return (
     <div className="min-h-screen bg-[#F8FAFC] pb-24">
       {/* Mobile Header */}
-      <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-slate-100 px-6 py-4 flex justify-between items-center font-sans shadow-sm">
-        <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 bg-[#003366] rounded-lg flex items-center justify-center">
-            <img src="/logo.png" alt="LIA" className="w-5 h-5 object-contain brightness-0 invert" />
+        <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-xl border-b border-slate-100 px-8 py-5 flex justify-between items-center font-sans shadow-sm">
+          <div className="flex items-center space-x-4">
+            <div className="w-10 h-10 bg-lia-navy rounded-xl flex items-center justify-center p-1.5 shadow-lg shadow-blue-900/10">
+              <img src="/logo.png" alt="LIA" className="w-full h-full object-contain" />
+            </div>
+            <span className="text-xl font-black tracking-tighter text-lia-navy">LIA Portal</span>
           </div>
-          <span className="text-lg font-black tracking-tighter text-[#003366]">LIA Portal</span>
-        </div>
         <div className="flex items-center space-x-2">
           <button 
             onClick={() => window.location.href = '/'}

@@ -186,17 +186,17 @@ export const Navbar: React.FC = () => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed inset-0 z-[60] md:hidden glass-dark flex flex-col p-8 pt-24"
+            className="fixed inset-0 z-[70] md:hidden bg-[#003366] flex flex-col p-8 pt-24 overflow-y-auto"
           >
             <button 
               onClick={() => setIsOpen(false)}
-              className="absolute top-8 right-8 text-white p-2"
+              className="absolute top-8 right-8 text-white p-2 hover:bg-white/10 rounded-full transition-colors"
               title="Fechar menu"
               aria-label="Fechar menu"
             >
-              <X size={32} />
+              <X size={28} />
             </button>
-            <div className="flex flex-col space-y-6">
+            <div className="flex flex-col space-y-8 my-auto">
               {navLinks.map((link) => (
                 <Link
                   key={link.path}
@@ -209,23 +209,26 @@ export const Navbar: React.FC = () => {
                   {link.name}
                 </Link>
               ))}
+              <div className="h-px bg-white/10 my-2" />
               <Link
                 to="/erp"
                 onClick={() => setIsOpen(false)}
-                className="flex items-center justify-center space-x-3 bg-white text-lia-navy px-8 py-6 rounded-3xl text-xl font-black shadow-2xl"
+                className="flex items-center justify-center space-x-3 bg-white text-lia-navy px-6 py-4 rounded-2xl text-lg font-black shadow-xl active:scale-95 transition-transform"
               >
-                <User size={24} />
+                <User size={20} />
                 <span>{t('nav.parentPortal')}</span>
               </Link>
             </div>
             
-            <div className="mt-auto flex flex-wrap justify-center gap-4 pb-8">
+            <div className="mt-auto grid grid-cols-2 gap-3 pb-8">
               {['pt', 'en', 'fr', 'ar'].map((lang) => (
                 <button
                   key={lang}
                   onClick={() => changeLanguage(lang)}
-                  className={`uppercase text-sm font-black px-8 py-4 rounded-2xl transition-all ${
-                    i18n.language === lang ? 'bg-lia-red text-white shadow-lg' : 'bg-white/10 text-white border border-white/20'
+                  className={`uppercase text-xs font-black py-3 rounded-xl transition-all border ${
+                    i18n.language === lang 
+                      ? 'bg-lia-red text-white border-transparent shadow-lg' 
+                      : 'bg-white/5 text-white border-white/10 active:bg-white/10'
                   }`}
                 >
                   {lang === 'ar' ? 'العربية' : lang}

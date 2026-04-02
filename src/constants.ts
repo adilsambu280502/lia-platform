@@ -36,25 +36,25 @@ export const FEATURES: Feature[] = [
   {
     id: 1,
     title: 'Ensino Trilíngue',
-    description: 'Português, Inglês e Francês integrados no currículo.',
+    description: 'Imersão natural em Português, Inglês e Francês para uma fluência sem fronteiras.',
     icon: 'Languages',
   },
   {
     id: 2,
-    title: 'Professores Qualificados',
-    description: 'Corpo docente internacional com vasta experiência.',
+    title: 'Padrão Internacional',
+    description: 'Currículo licenciado pela Cambridge garantindo excelência académica global.',
     icon: 'GraduationCap',
   },
   {
     id: 3,
-    title: 'Tecnologia',
-    description: 'Laboratórios modernos e ensino digital avançado.',
+    title: 'Tecnologia & Inovação',
+    description: 'Laboratórios de robótica e informática para preparar os líderes da era digital.',
     icon: 'Cpu',
   },
   {
     id: 4,
-    title: 'Desenvolvimento Integral',
-    description: 'Foco no bem-estar emocional e social do aluno.',
+    title: 'Educação Humanizada',
+    description: 'Foco no caráter, valores cristãos e desenvolvimento socioemocional de cada aluno.',
     icon: 'Heart',
   },
 ];
@@ -63,19 +63,19 @@ export const EDUCATION_LEVELS: EducationLevel[] = [
   {
     id: 1,
     name: 'Ensino Infantil e Primário',
-    description: 'Foco absoluto no desenvolvimento motor, cognitivo e social da criança, respeitando o ritmo individual de cada aluno.',
+    description: 'Um ambiente seguro e lúdico onde a curiosidade natural da criança é o motor de toda a aprendizagem.',
     image: '/images/home-nivel-1.jpg',
   },
   {
     id: 2,
     name: 'Imersão Multilingue',
-    description: 'Aulas planeadas para garantir uma aquisição de vocabulário natural e fluente nas línguas mais relevantes do cenário global.',
+    description: 'Onde as línguas não são apenas matérias, mas ferramentas vivas para explorar o conhecimento global.',
     image: '/images/home-nivel-2.jpg',
   },
   {
     id: 3,
     name: 'Atividades de Enriquecimento',
-    description: 'Oficinas extracurriculares desenhadas para estimular a criatividade, a resolução de problemas e o trabalho de equipa.',
+    description: 'Do desporto às artes plásticas, estimulamos talentos que vão muito além da sala de aula tradicional.',
     image: '/images/home-nivel-3.jpg',
   },
 ];

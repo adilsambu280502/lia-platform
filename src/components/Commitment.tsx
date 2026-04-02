@@ -40,14 +40,14 @@ export const Commitment: React.FC = () => {
 
   return (
     <section className="py-24 bg-gray-50 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-8 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row items-center gap-16">
           {/* Text Content */}
           <motion.div 
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="lg:w-1/2"
+            className="lg:w-1/2 text-center lg:text-left"
           >
             <h2 className="text-sm font-black text-[#E31E24] uppercase tracking-[0.3em] mb-6">
               {t('commitment.title')}
@@ -55,11 +55,11 @@ export const Commitment: React.FC = () => {
             <h3 className="text-4xl md:text-5xl font-black text-[#003366] mb-8 leading-[1.1] tracking-tighter">
               {t('commitment.subtitle')}
             </h3>
-            <p className="text-lg text-gray-600 mb-12 leading-relaxed">
+            <p className="text-lg text-gray-600 mb-12 leading-relaxed max-w-2xl mx-auto lg:mx-0">
               {t('commitment.description')}
             </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 text-left">
               {benefits.map((benefit, index) => (
                 <motion.div 
                   key={index}
