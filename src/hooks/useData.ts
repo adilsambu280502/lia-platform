@@ -30,6 +30,8 @@ export interface MockData {
   siteContent: SiteContent;
 }
 
+const SCHEMA_VERSION = '1.1'; // Update this to force-clear older caches
+
 const INITIAL_NEWS: NewsItem[] = [
   { id: 1, title: 'LIA recebe Certificação Cambridge', date: '2026-03-28', category: 'Académico', image: '/images/home-news-1.jpg' },
   { id: 2, title: 'Inscrições Abertas para 2026/27', date: '2026-03-25', category: 'Admissões', image: '/images/home-news-2.jpg' },
@@ -105,7 +107,16 @@ export const useData = () => {
   const [loading, setLoading] = useState(false);
   const [siteContent, setSiteContent] = useState<SiteContent>(() => {
     const saved = localStorage.getItem('lia_site_content');
-    return saved ? JSON.parse(saved) : INITIAL_SITE_CONTENT;
+    const savedVersion = localStorage.getItem('lia_schema_version');
+
+    // Force update if version is missing or old
+    if (!saved || savedVersion !== SCHEMA_VERSION) {
+      localStorage.setItem('lia_schema_version', SCHEMA_VERSION);
+      localStorage.setItem('lia_site_content', JSON.stringify(INITIAL_SITE_CONTENT));
+      return INITIAL_SITE_CONTENT;
+    }
+    
+    return JSON.parse(saved);
   });
 
   const students = MOCK_STUDENTS;
