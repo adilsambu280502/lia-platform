@@ -63,7 +63,7 @@ export const ContactPage: React.FC = () => {
                     <Phone size={24} />
                   </div>
                   <h4 className="text-xl font-bold text-[#003366] mb-2 tracking-tight">{t('contact_page.phone')}</h4>
-                  <p className="text-gray-500 font-medium leading-relaxed">+244 951 110 110<br/>+244 993 777 777</p>
+                  <p className="text-gray-500 font-medium leading-relaxed">+244 951 110 110</p>
                 </div>
 
                 <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-xl transition-all group">

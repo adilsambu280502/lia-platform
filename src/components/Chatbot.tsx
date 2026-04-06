@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { MessageCircle, X, Send, User, Bot, Phone } from 'lucide-react';
+import { MessageCircle, X, Send, User, Bot, Phone, PhoneCall } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { GoogleGenAI } from '@google/genai';
 import { useLocation } from 'react-router-dom';
@@ -16,6 +16,7 @@ interface Message {
 export const Chatbot: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [navMenuOpen, setNavMenuOpen] = useState(false);
+  const [showContactOptions, setShowContactOptions] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -146,7 +147,17 @@ export const Chatbot: React.FC = () => {
   };
 
   const handleHumanTransfer = () => {
+    setShowContactOptions((prev) => !prev);
+  };
+
+  const handleWhatsApp = () => {
     window.open('https://wa.me/244951110110', '_blank');
+    setShowContactOptions(false);
+  };
+
+  const handlePhoneCall = () => {
+    window.location.href = 'tel:+244951110110';
+    setShowContactOptions(false);
   };
 
   return (
@@ -224,13 +235,41 @@ export const Chatbot: React.FC = () => {
 
             {/* Actions */}
             <div className="p-3 bg-white border-t border-gray-100">
+
+              {/* Human contact toggle button */}
               <button 
                 onClick={handleHumanTransfer}
-                className="w-full mb-3 py-2 px-4 bg-green-50 text-green-700 hover:bg-green-100 rounded-lg text-sm font-medium flex items-center justify-center space-x-2 transition-colors"
+                className={`w-full mb-2 py-2 px-4 flex items-center justify-center space-x-2 rounded-lg text-sm font-medium transition-all ${
+                  showContactOptions 
+                    ? 'bg-lia-navy text-white' 
+                    : 'bg-green-50 text-green-700 hover:bg-green-100'
+                }`}
               >
-                <Phone size={16} />
+                <PhoneCall size={15} />
                 <span>{t('chatbot.human')}</span>
               </button>
+
+              {/* Expanded contact options */}
+              {showContactOptions && (
+                <div className="mb-3 grid grid-cols-2 gap-2">
+                  <button
+                    onClick={handleWhatsApp}
+                    className="flex flex-col items-center justify-center gap-1 p-3 bg-[#25D366]/10 text-[#128C7E] hover:bg-[#25D366]/20 border border-[#25D366]/30 rounded-xl text-xs font-bold transition-all"
+                  >
+                    <MessageCircle size={20} />
+                    <span>WhatsApp</span>
+                    <span className="text-[10px] font-normal opacity-70">+244 951 110 110</span>
+                  </button>
+                  <button
+                    onClick={handlePhoneCall}
+                    className="flex flex-col items-center justify-center gap-1 p-3 bg-blue-50 text-lia-navy hover:bg-blue-100 border border-blue-100 rounded-xl text-xs font-bold transition-all"
+                  >
+                    <Phone size={20} />
+                    <span>Chamada</span>
+                    <span className="text-[10px] font-normal opacity-70">+244 951 110 110</span>
+                  </button>
+                </div>
+              )}
               
               <div className="flex items-center space-x-2">
                 <input

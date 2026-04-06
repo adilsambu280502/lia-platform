@@ -115,7 +115,7 @@ export const Footer: React.FC<FooterProps> = ({ onPageChange }) => {
               </li>
               <li className="flex items-start space-x-4">
                 <Phone className="text-[#E31E24] flex-shrink-0" size={24} />
-                <span className="text-gray-600 font-medium">+244 951 110 110<br/>+244 993 777 777</span>
+                <span className="text-gray-600 font-medium">+244 951 110 110</span>
               </li>
               <li className="flex items-center space-x-4">
                 <Mail className="text-[#E31E24] flex-shrink-0" size={24} />
