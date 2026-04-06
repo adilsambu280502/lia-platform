@@ -6,7 +6,9 @@ import {
   GraduationCap,
   FileSearch,
   Mail,
-  HelpCircle
+  HelpCircle,
+  ExternalLink,
+  LogOut
 } from 'lucide-react';
 import { AdminStats } from './admin/AdminStats';
 import { SliderManager } from './admin/SliderManager';
@@ -40,19 +42,19 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout, onOpen
 
   return (
     <div className="p-4 md:p-8 max-w-[1600px] mx-auto space-y-8 text-[#003366]">
-      <header className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 bg-white/40 backdrop-blur-md p-4 rounded-3xl border border-white/20 shadow-sm sticky top-4 z-50">
-        {/* Brand Area */}
+      <header className="grid grid-cols-[auto_1fr_auto] items-center gap-4 bg-white/60 backdrop-blur-xl p-4 rounded-3xl border border-white/40 shadow-premium sticky top-4 z-50">
+        {/* Brand Area - fixed width/shrink-0 */}
         <div className="flex items-center space-x-4 shrink-0 px-2 border-r border-slate-100 pr-6">
           <img src="/logo.png" alt="LIA Logo" className="h-10 w-auto object-contain drop-shadow-sm" />
-          <div className="flex flex-col">
+          <div className="hidden sm:flex flex-col">
             <h1 className="text-lg font-black tracking-tight leading-none uppercase">Admin Panel</h1>
-            <p className="text-[8px] font-bold text-slate-400 uppercase tracking-[0.2em] mt-0.5">Gestão Centralizada LIA</p>
+            <p className="text-[8px] font-bold text-slate-400 uppercase tracking-[0.3em] mt-0.5">Gestão Centralizada LIA</p>
           </div>
         </div>
 
-        {/* Dynamic Tabs Navigation - Optimized for Center Flow */}
-        <nav className="flex-1 flex justify-center">
-          <div className="flex items-center space-x-1 bg-slate-100/50 p-1 rounded-2xl w-fit overflow-x-auto no-scrollbar">
+        {/* Dynamic Tabs Navigation - Scrollable if needed */}
+        <nav className="flex justify-center overflow-x-auto no-scrollbar px-4">
+          <div className="flex items-center space-x-1 bg-slate-100/50 p-1 rounded-2xl w-fit">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
@@ -70,58 +72,41 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout, onOpen
           </div>
         </nav>
 
-        {/* Global Navigation Actions Group */}
-        <div className="flex items-center space-x-2 shrink-0 bg-slate-100/50 p-1 rounded-2xl">
-          <div className="px-2 border-r border-slate-200">
-            <LanguageSelector showLabel={true} />
-          </div>
-          
-          <div className="flex items-center space-x-1">
-            <button 
-              onClick={onOpenSupport}
-              className="group flex items-center space-x-2 px-4 py-2.5 bg-white text-slate-500 font-black rounded-xl text-[9px] uppercase tracking-widest hover:text-lia-navy hover:shadow-sm transition-all active:scale-95 border border-white"
-              title="Suporte Técnico"
-            >
-              <HelpCircle size={14} className="group-hover:text-lia-red transition-colors" />
-              <span className="hidden xl:inline">Suporte</span>
-            </button>
-
-            <button 
-              onClick={() => window.location.href = '/'}
-              className="group flex items-center space-x-2 px-4 py-2.5 bg-white text-lia-navy font-black rounded-xl text-[9px] uppercase tracking-widest hover:shadow-sm transition-all active:scale-95 border border-white"
-              title="Ver Site Público"
-            >
-              <svg 
-                xmlns="http://www.w3.org/2000/svg" 
-                width="14" height="14" 
-                viewBox="0 0 24 24" fill="none" stroke="currentColor" 
-                strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" 
-                className="group-hover:text-lia-red transition-colors"
+        {/* Global Navigation Actions Group - shrink-0 to prevent hiding */}
+        <div className="flex items-center space-x-2 shrink-0">
+          <div className="bg-slate-100/50 p-1 rounded-2xl flex items-center space-x-1">
+            <div className="px-2 border-r border-slate-200">
+              <LanguageSelector showLabel={true} />
+            </div>
+            
+            <div className="flex items-center space-x-1">
+              <button 
+                onClick={onOpenSupport}
+                className="group flex items-center space-x-2 px-4 py-2.5 bg-white text-slate-500 font-black rounded-xl text-[9px] uppercase tracking-widest hover:text-lia-navy hover:shadow-sm transition-all active:scale-95 border border-white"
+                title="Suporte Técnico LIA"
               >
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                <polyline points="15 3 21 3 21 9" />
-                <line x1="10" y1="14" x2="21" y2="3" />
-              </svg>
-              <span>Ver Site</span>
-            </button>
+                <HelpCircle size={14} className="group-hover:text-lia-red transition-colors" />
+                <span className="hidden xl:inline">Suporte</span>
+              </button>
 
-            <button 
-              onClick={onLogout}
-              className="flex items-center space-x-2 px-4 py-2.5 bg-lia-red text-white font-black rounded-xl text-[9px] uppercase tracking-widest shadow-premium hover:bg-[#c41a1f] transition-all active:scale-95"
-              title="Encerrar Sessão"
-            >
-              <svg 
-                xmlns="http://www.w3.org/2000/svg" 
-                width="14" height="14" 
-                viewBox="0 0 24 24" fill="none" stroke="currentColor" 
-                strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+              <button 
+                onClick={() => window.location.href = '/'}
+                className="group flex items-center space-x-2 px-4 py-2.5 bg-white text-lia-navy font-black rounded-xl text-[9px] uppercase tracking-widest hover:shadow-sm transition-all active:scale-95 border border-white"
+                title="Sair para o Site Público"
               >
-                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-                <polyline points="16 17 21 12 16 7" />
-                <line x1="21" y1="12" x2="9" y2="12" />
-              </svg>
-              <span>Sair</span>
-            </button>
+                <ExternalLink size={14} className="group-hover:text-lia-red transition-colors" />
+                <span className="hidden lg:inline">Ir para o Site</span>
+              </button>
+
+              <button 
+                onClick={onLogout}
+                className="flex items-center space-x-2 px-4 py-2.5 bg-lia-red text-white font-black rounded-xl text-[9px] uppercase tracking-widest shadow-premium hover:bg-[#c41a1f] transition-all active:scale-95"
+                title="Encerrar Sessão no Painel"
+              >
+                <LogOut size={14} />
+                <span className="hidden sm:inline">Sair</span>
+              </button>
+            </div>
           </div>
         </div>
       </header>

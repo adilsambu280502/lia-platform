@@ -169,7 +169,9 @@ export default function App() {
   const { t, i18n } = useTranslation();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isOffline, setIsOffline] = useState(!navigator.onLine);
-  const [isSupportOpen, setIsSupportOpen] = useState(false);
+  const [supportState, setSupportState] = useState<{ isOpen: boolean; title?: string }>({ isOpen: false });
+
+  const openSupport = (title?: string) => setSupportState({ isOpen: true, title });
 
   useEffect(() => {
     const handleOnline = () => {
@@ -228,7 +230,7 @@ export default function App() {
           {/* Institutional Routes */}
           <Route path="/" element={
             <MainLayout currentPage="home" onPageChange={() => {}}>
-              <HomePage onOpenSupport={() => setIsSupportOpen(true)} />
+              <HomePage onOpenSupport={() => openSupport()} />
             </MainLayout>
           } />
           <Route path="/about" element={
@@ -266,7 +268,7 @@ export default function App() {
           <Route path="/erp" element={
             isLoggedIn ? (
               <ERPLayout>
-                <ERP onLogout={handleLogout} onOpenSupport={() => setIsSupportOpen(true)} />
+                <ERP onLogout={handleLogout} onOpenSupport={() => openSupport(t('cta.supportTitle'))} />
               </ERPLayout>
             ) : (
               <Login onLogin={handleLogin} onBack={() => window.location.href = '/'} portalType="parent" />
@@ -277,7 +279,7 @@ export default function App() {
           <Route path="/admin" element={
             isLoggedIn ? (
               <AdminLayout>
-                <AdminDashboard onLogout={handleLogout} onOpenSupport={() => setIsSupportOpen(true)} />
+                <AdminDashboard onLogout={handleLogout} onOpenSupport={() => openSupport("Suporte Técnico LIA")} />
               </AdminLayout>
             ) : (
               <Login onLogin={handleLogin} onBack={() => window.location.href = '/'} portalType="admin" />
@@ -288,7 +290,11 @@ export default function App() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Suspense>
-      <SupportModal isOpen={isSupportOpen} onClose={() => setIsSupportOpen(false)} />
+      <SupportModal 
+        isOpen={supportState.isOpen} 
+        onClose={() => setSupportState({ ...supportState, isOpen: false })} 
+        title={supportState.title}
+      />
     </BrowserRouter>
   );
 }
