@@ -42,7 +42,7 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({ isDark }) =>
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 10, scale: 0.95 }}
               transition={{ duration: 0.2, ease: "easeOut" }}
-              className="absolute right-0 mt-3 w-44 bg-white/95 backdrop-blur-2xl rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] overflow-hidden py-3 border border-white/20 z-[101]"
+              className="absolute left-0 md:left-auto md:right-0 mt-3 w-44 bg-white/95 backdrop-blur-2xl rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] overflow-hidden py-3 border border-white/20 z-[101]"
             >
               <div className="px-5 py-2 border-b border-gray-100 mb-2">
                 <span className="text-[9px] font-bold text-gray-400 uppercase tracking-[0.2em]">
