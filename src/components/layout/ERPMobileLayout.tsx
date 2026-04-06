@@ -1,5 +1,6 @@
-import React from 'react';
-import { motion } from 'motion/react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { LanguageSelector } from '../LanguageSelector';
 import { 
   LayoutDashboard, 
   GraduationCap, 
@@ -33,6 +34,15 @@ export const ERPMobileLayout: React.FC<ERPMobileLayoutProps> = ({
 }) => {
   // We'll show the top 4 items + a "More" menu for mobile bottom nav
   const bottomNavItems = menuItems.slice(0, 4);
+  const remainingItems = menuItems.slice(4);
+  
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // Helper to handle tab selection from menu
+  const handleMenuSelect = (id: string) => {
+    setActiveTab(id);
+    setIsMenuOpen(false);
+  };
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] pb-24">
@@ -44,7 +54,8 @@ export const ERPMobileLayout: React.FC<ERPMobileLayoutProps> = ({
             </div>
             <span className="text-xl font-black tracking-tighter text-lia-navy">LIA Portal</span>
           </div>
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-1">
+          <LanguageSelector />
           <button 
             onClick={() => window.location.href = '/'}
             className="p-2 text-slate-400 hover:text-lia-navy transition-colors"
@@ -101,16 +112,66 @@ export const ERPMobileLayout: React.FC<ERPMobileLayoutProps> = ({
               )}
             </button>
           ))}
-          
           {/* More Menu Button */}
-          <button className="flex flex-col items-center justify-center w-16 text-slate-400">
-            <div className="p-2 rounded-xl">
-              <Menu size={20} />
+          <button 
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className={`flex flex-col items-center justify-center w-16 transition-colors ${isMenuOpen ? 'text-lia-navy' : 'text-slate-400'}`}
+          >
+            <div className={`p-2 rounded-xl transition-transform ${isMenuOpen ? 'bg-slate-100 scale-110' : ''}`}>
+              <Menu size={20} strokeWidth={isMenuOpen ? 2.5 : 2} />
             </div>
-            <span className="text-[10px] mt-1.5 font-bold tracking-tight">Menu</span>
+            <span className={`text-[10px] mt-1.5 font-bold tracking-tight ${isMenuOpen ? 'text-lia-navy' : 'text-slate-400'}`}>Menu</span>
           </button>
         </div>
       </nav>
+
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <>
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-40"
+              onClick={() => setIsMenuOpen(false)}
+            />
+            <motion.div 
+              initial={{ y: '100%' }}
+              animate={{ y: 0 }}
+              exit={{ y: '100%' }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="fixed bottom-20 left-4 right-4 z-40 bg-white rounded-3xl shadow-2xl border border-slate-100 overflow-hidden"
+            >
+              <div className="p-4 bg-slate-50 border-b border-slate-100/50">
+                <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-2">Mais Opções</span>
+              </div>
+              <div className="p-2 flex flex-col">
+                {menuItems.map((item) => {
+                  const isActive = activeTab === item.id;
+                  return (
+                    <button
+                      key={item.id}
+                      onClick={() => handleMenuSelect(item.id)}
+                      className={`flex items-center space-x-4 p-4 rounded-2xl transition-all ${
+                        isActive ? 'bg-slate-50 text-lia-navy' : 'text-slate-600 hover:bg-slate-50'
+                      }`}
+                    >
+                      <div className={`p-2 rounded-xl ${isActive ? 'bg-white shadow-sm text-lia-navy' : 'text-slate-400'}`}>
+                        <item.icon size={20} strokeWidth={isActive ? 2.5 : 2} />
+                      </div>
+                      <span className={`text-sm font-bold tracking-tight ${isActive ? 'text-lia-navy' : ''}`}>
+                        {item.label}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
