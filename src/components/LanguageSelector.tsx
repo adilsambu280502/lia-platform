@@ -5,9 +5,10 @@ import { useTranslation } from 'react-i18next';
 
 interface LanguageSelectorProps {
   isDark?: boolean;
+  showLabel?: boolean;
 }
 
-export const LanguageSelector: React.FC<LanguageSelectorProps> = ({ isDark }) => {
+export const LanguageSelector: React.FC<LanguageSelectorProps> = ({ isDark, showLabel }) => {
   const [langOpen, setLangOpen] = useState(false);
   const { t, i18n } = useTranslation();
 
@@ -26,7 +27,14 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({ isDark }) =>
             : 'hover:bg-slate-100 text-[#003366]'
         }`}
       >
-        <Globe size={18} className="text-[#E31E24]" />
+        <div className="flex items-center space-x-2">
+          <Globe size={18} className="text-[#E31E24]" />
+          {showLabel && (
+            <span className="text-[10px] font-black uppercase tracking-widest border-r border-slate-200 pr-2 mr-1">
+              Idioma
+            </span>
+          )}
+        </div>
         <span className="text-[10px] font-black uppercase tracking-widest">{i18n.language}</span>
       </button>
       

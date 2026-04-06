@@ -8,6 +8,13 @@ export const THEME = {
   text: '#1A1A1A',
 };
 
+export const CONTACTS = {
+  phone: '+244 951 110 110',
+  whatsapp: 'https://wa.me/244951110110',
+  email: 'info@lia.ao',
+  address: 'Rua António Feliciano de Castilho, Número 240, Vila Alice, Luanda, Angola.',
+};
+
 export const SLIDES: Slide[] = [
   {
     id: 1,

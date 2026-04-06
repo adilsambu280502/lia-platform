@@ -29,6 +29,8 @@ const TermsOfUse = lazy(() => import('./components/TermsOfUse').then(m => ({ def
 const OfflineNotice = lazy(() => import('./components/OfflineNotice').then(m => ({ default: m.OfflineNotice })));
 import { useTranslation } from 'react-i18next';
 import { Chatbot } from './components/Chatbot';
+import { SupportModal } from './components/SupportModal';
+import { CONTACTS } from './constants';
 import { MessageCircle, HelpCircle, GraduationCap as GraduationIcon } from 'lucide-react';
 import { motion } from 'motion/react';
 
@@ -38,23 +40,42 @@ const LoadingSpinner = () => (
   </div>
 );
 
-// Wrapper to handle dynamic path title mapping
-const PageTitleHandler = () => {
-  const { t } = useTranslation();
+// Wrapper to handle dynamic SEO and Title mapping
+const SEOHandler = () => {
+  const { t, i18n } = useTranslation();
   const location = useLocation();
+
   useEffect(() => {
     const path = location.pathname.split('/')[1] || 'home';
-    let titleKey = `nav.${path}`;
-    if (path === 'erp') titleKey = 'nav.parentPortal';
-    if (path === 'admin') titleKey = 'nav.dashboard';
+    const pageKey = path === 'erp' ? 'erp' : (path === 'admin' ? 'admin' : path);
     
-    const translatedTitle = t(titleKey, path.charAt(0).toUpperCase() + path.slice(1));
-    document.title = `LIA | ${translatedTitle}`;
-  }, [location, t]);
+    const title = t(`seo.${pageKey}.title`, 'LIA - Luanda International Academy');
+    const description = t(`seo.${pageKey}.description`, 'Educação internacional de excelência em Luanda.');
+
+    // Update Document Title
+    document.title = `LIA | ${title}`;
+
+    // Update Meta Description
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', description);
+    }
+
+    // Update OpenGraph Tags
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) ogTitle.setAttribute('content', `LIA | ${title}`);
+
+    const ogDescription = document.querySelector('meta[property="og:description"]');
+    if (ogDescription) ogDescription.setAttribute('content', description);
+
+    // Update HTML lang attribute
+    document.documentElement.lang = i18n.language;
+  }, [location, t, i18n.language]);
+
   return null;
 };
 
-const HomePage = () => {
+const HomePage = ({ onOpenSupport }: { onOpenSupport: () => void }) => {
   const { t } = useTranslation();
   return (
     <>
@@ -97,7 +118,7 @@ const HomePage = () => {
                     boxShadow: { duration: 1.5, repeat: Infinity, ease: "easeOut" } 
                   }}
                   className="px-10 py-5 bg-white text-lia-navy font-bold rounded-full hover:bg-gray-100 transition-all shadow-xl hover:shadow-2xl transform hover:-translate-y-1 text-lg flex items-center space-x-3"
-                  onClick={() => window.open('https://wa.me/244923000000', '_blank')}
+                  onClick={() => window.open(CONTACTS.whatsapp, '_blank')}
                 >
                   <MessageCircle size={24} />
                   <span>{t('cta.whatsapp')}</span>
@@ -116,7 +137,10 @@ const HomePage = () => {
               <p className="text-gray-500 text-sm mb-8 leading-relaxed max-w-xs">
                 {t('cta.supportDesc')}
               </p>
-              <button className="px-8 py-3 bg-lia-navy text-white font-bold rounded-2xl hover:bg-[#002244] transition-all text-sm">
+               <button 
+                onClick={onOpenSupport}
+                className="px-8 py-3 bg-lia-navy text-white font-bold rounded-2xl hover:bg-[#002244] transition-all text-sm"
+              >
                 {t('cta.supportButton')}
               </button>
             </div>
@@ -145,6 +169,7 @@ export default function App() {
   const { t, i18n } = useTranslation();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isOffline, setIsOffline] = useState(!navigator.onLine);
+  const [isSupportOpen, setIsSupportOpen] = useState(false);
 
   useEffect(() => {
     const handleOnline = () => {
@@ -165,7 +190,9 @@ export default function App() {
     };
   }, []);
 
-  // Authentication check simulation
+  // AUTHENTICATION STRATEGY: Current implementation uses localStorage for demo purposes.
+  // SECURITY NOTE: In a production environment with a backend, this should be replaced
+  // by a robust JWT/Cookie-based auth system with interceptors.
   useEffect(() => {
     const authStatus = localStorage.getItem('lia_isLoggedIn') === 'true';
     setIsLoggedIn(authStatus);
@@ -184,13 +211,15 @@ export default function App() {
 
   const handleLogout = () => {
     localStorage.removeItem('lia_isLoggedIn');
+    localStorage.removeItem('lia_user_role'); // Clean up any other session data
     setIsLoggedIn(false);
+    toast.info(t('erp.logout'), { position: 'bottom-right' });
   };
 
   return (
     <BrowserRouter>
       <Toaster richColors position="top-center" expand />
-      <PageTitleHandler />
+      <SEOHandler />
       <OfflineNotice />
       <Chatbot />
       <CookieConsent />
@@ -199,7 +228,7 @@ export default function App() {
           {/* Institutional Routes */}
           <Route path="/" element={
             <MainLayout currentPage="home" onPageChange={() => {}}>
-              <HomePage />
+              <HomePage onOpenSupport={() => setIsSupportOpen(true)} />
             </MainLayout>
           } />
           <Route path="/about" element={
@@ -237,7 +266,7 @@ export default function App() {
           <Route path="/erp" element={
             isLoggedIn ? (
               <ERPLayout>
-                <ERP onLogout={handleLogout} />
+                <ERP onLogout={handleLogout} onOpenSupport={() => setIsSupportOpen(true)} />
               </ERPLayout>
             ) : (
               <Login onLogin={handleLogin} onBack={() => window.location.href = '/'} portalType="parent" />
@@ -248,7 +277,7 @@ export default function App() {
           <Route path="/admin" element={
             isLoggedIn ? (
               <AdminLayout>
-                <AdminDashboard onLogout={handleLogout} />
+                <AdminDashboard onLogout={handleLogout} onOpenSupport={() => setIsSupportOpen(true)} />
               </AdminLayout>
             ) : (
               <Login onLogin={handleLogin} onBack={() => window.location.href = '/'} portalType="admin" />
@@ -259,6 +288,7 @@ export default function App() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Suspense>
+      <SupportModal isOpen={isSupportOpen} onClose={() => setIsSupportOpen(false)} />
     </BrowserRouter>
   );
 }

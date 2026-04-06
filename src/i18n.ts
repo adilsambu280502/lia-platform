@@ -13,6 +13,32 @@ const resources = {
         parentPortal: 'Área do Encarregado',
         selectLanguage: 'Seleccionar Idioma',
       },
+      seo: {
+        home: {
+          title: 'Educação Multilingue de Excelência em Luanda',
+          description: 'A Luanda International Academy (LIA) é uma escola internacional licenciada pela Cambridge, oferecendo ensino de elite em Português, Inglês e Francês na Vila Alice.'
+        },
+        about: {
+          title: 'Sobre a LIA | Quem Somos',
+          description: 'Conheça o projeto pedagógico global da LIA, focado na excelência académica e no desenvolvimento integral de futuros líderes globais.'
+        },
+        teaching: {
+          title: 'Oferta Educativa | Currículo Cambridge',
+          description: 'Descubra a nossa abordagem pedagógica multilingue e o currículo internacional que prepara os alunos para um mundo sem fronteiras.'
+        },
+        admissions: {
+          title: 'Admissões | Junte-se à Nossa Comunidade',
+          description: 'Inicie o processo de candidatura para o seu filho na LIA. Vagas limitadas para creche, pré-escolar e ensino primário.'
+        },
+        contact: {
+          title: 'Contactos | Visite-nos na Vila Alice',
+          description: 'Entre em contacto com a nossa equipa administrativa ou agende uma visita às nossas instalações modernas no coração de Luanda.'
+        },
+        privacy: { title: 'Política de Privacidade', description: 'Proteção de dados e privacidade dos utilizadores da plataforma LIA.' },
+        terms: { title: 'Termos de Utilização', description: 'Condições institucionais e regras de uso da plataforma digital LIA.' },
+        erp: { title: 'Portal do Encarregado', description: 'Acompanhe o percurso académico, notas e pagamentos do seu filho em tempo real.' },
+        admin: { title: 'Painel Administrativo', description: 'Gestão centralizada de conteúdos e processos da academia.' }
+      },
       hero: {
         slide1: {
           headline: 'O Mundo Começa Aqui. Educação Multilingue de Excelência.',
@@ -298,6 +324,32 @@ const resources = {
         parentPortal: 'Parent Portal',
         selectLanguage: 'Select Language',
       },
+      seo: {
+        home: {
+          title: 'Excellence in Multilingual Education in Luanda',
+          description: 'Luanda International Academy (LIA) is a Cambridge-licensed international school offering elite education in Portuguese, English, and French.'
+        },
+        about: {
+          title: 'About LIA | Who We Are',
+          description: 'Learn about LIA\'s global pedagogical project, focused on academic excellence and holistic development of future global leaders.'
+        },
+        teaching: {
+          title: 'Educational Offer | Cambridge Curriculum',
+          description: 'Discover our multilingual pedagogical approach and the international curriculum that prepares students for a borderless world.'
+        },
+        admissions: {
+          title: 'Admissions | Join Our Community',
+          description: 'Start the application process for your child at LIA. Limited spots for nursery, pre-school, and primary education.'
+        },
+        contact: {
+          title: 'Contact Us | Visit Us in Vila Alice',
+          description: 'Connect with our administrative team or schedule a visit to our modern facilities in the heart of Luanda.'
+        },
+        privacy: { title: 'Privacy Policy', description: 'Data protection and privacy for LIA platform users.' },
+        terms: { title: 'Terms of Use', description: 'Institutional conditions and digital platform rules.' },
+        erp: { title: 'Parent Portal', description: 'Track your child\'s academic journey, grades, and payments in real-time.' },
+        admin: { title: 'Admin Dashboard', description: 'Centralized management of academy content and processes.' }
+      },
       hero: {
         slide1: {
           headline: 'The World Starts Here. Excellence in Multilingual Education.',
@@ -580,6 +632,32 @@ const resources = {
         parentPortal: 'Portail Parents',
         selectLanguage: 'Choisir la Langue',
       },
+      seo: {
+        home: {
+          title: 'Excellence en Éducation Multilingue à Luanda',
+          description: 'La Luanda International Academy (LIA) est une école internationale agréée par Cambridge, offrant un enseignement d\'élite en portugais, anglais et français.'
+        },
+        about: {
+          title: 'À Propos de LIA | Qui Sommes-Nous',
+          description: 'Découvrez le projet pédagogique mondial de LIA, axé sobre l\'excellence académique et le développement holistique des futurs leaders mondiaux.'
+        },
+        teaching: {
+          title: 'Offre Éducative | Programme Cambridge',
+          description: 'Découvrez notre approche pédagogique multilingue et le programme international qui prépare os alunos à un monde sans frontières.'
+        },
+        admissions: {
+          title: 'Admissions | Rejoignez Notre Communauté',
+          description: 'Commencez le processus de candidature pour votre enfant à LIA. Places limitées para la crèche, le préscolaire et le primaire.'
+        },
+        contact: {
+          title: 'Contactez-nous | Visitez-nous à Vila Alice',
+          description: 'Parlez à notre équipe administrative ou planifiez une visite de nos installations modernes au cœur de Luanda.'
+        },
+        privacy: { title: 'Politique de Confidentialité', description: 'Protection des données et confidentialité pour les utilisateurs de LIA.' },
+        terms: { title: 'Conditions d\'Utilisation', description: 'Règles institutionnelles et conditions d\'utilisation de la plateforme numérique.' },
+        erp: { title: 'Portail Parents', description: 'Suivez le parcours académique, les notes et les paiements de votre enfant em tempo real.' },
+        admin: { title: 'Tableau de Bord Admin', description: 'Gestion centralisée des contenus et des processus de l\'académie.' }
+      },
       hero: {
         slide1: {
           headline: 'Le Monde Commence Ici. Excellence en Éducation Multilingue.',
@@ -861,6 +939,32 @@ const resources = {
         contact: 'اتصل بنا',
         parentPortal: 'بوابة ولي الأمر',
         selectLanguage: 'اختر لغة',
+      },
+      seo: {
+        home: {
+          title: 'التميز في التعليم متعدد اللغات في لواندا',
+          description: 'أكاديمية لواندا الدولية (LIA) هي مدرسة دولية مرخصة من كامبريدج، تقدم تعليماً نخبوياً باللغات البرتغالية والإنجليزية والفرنسية.'
+        },
+        about: {
+          title: 'حول LIA | من نحن',
+          description: 'تعرف على مشروع LIA التربوي العالمي، الذي يركز على التميز الأكاديمي والتنمية الشاملة لقادة العالم المستقبليين.'
+        },
+        teaching: {
+          title: 'العرض التعليمي | منهج كامبريدج',
+          description: 'اكتشف نهجنا التربوي متعدد اللغات والمنهج الدولي الذي يعد الطلاب لعالم بلا حدود.'
+        },
+        admissions: {
+          title: 'القبول | انضم إلى مجتمعنا',
+          description: 'ابدأ عملية التقديم لطفلك في LIA. أماكن محدودة للحضانة وما قبل المدرسة والتعليم الابتدائي.'
+        },
+        contact: {
+          title: 'اتصل بنا | زرنا في فيلا أليس',
+          description: 'تواصل مع فريقنا الإداري أو احجز زيارة لمرافقنا الحديثة في قلب لواندا.'
+        },
+        privacy: { title: 'سياسة الخصوصية', description: 'حماية البيانات والخصوصية لمستخدمي منصة LIA.' },
+        terms: { title: 'شروط الاستخدام', description: 'الشروط المؤسسية وقواعد استخدام المنصة الرقمية LIA.' },
+        erp: { title: 'بوابة ولي الأمر', description: 'تابع الرحلة الأكاديمية ودرجات طفلك ومدفوعاته في الوقت الفعلي.' },
+        admin: { title: 'لوحة التحكم الإدارية', description: 'إدارة مركزية لمحتوى وعمليات الأكاديمية.' }
       },
       hero: {
         slide1: {

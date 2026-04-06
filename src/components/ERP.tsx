@@ -43,9 +43,10 @@ import { toast } from 'sonner';
 
 interface ERPProps {
   onLogout: () => void;
+  onOpenSupport?: () => void;
 }
 
-export const ERP: React.FC<ERPProps> = ({ onLogout }) => {
+export const ERP: React.FC<ERPProps> = ({ onLogout, onOpenSupport }) => {
   const { t } = useTranslation();
   const { students, loading, refreshData } = useData();
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -131,7 +132,10 @@ export const ERP: React.FC<ERPProps> = ({ onLogout }) => {
           <Settings size={18} />
           <span>{t('erp.settings')}</span>
         </button>
-        <button className="w-full flex items-center space-x-3 px-4 py-2 text-sm font-semibold text-slate-500 hover:text-slate-900 transition-colors">
+        <button 
+          onClick={onOpenSupport}
+          className="w-full flex items-center space-x-3 px-4 py-2 text-sm font-semibold text-slate-500 hover:text-slate-900 transition-colors"
+        >
           <HelpCircle size={18} />
           <span>{t('erp.support')}</span>
         </button>

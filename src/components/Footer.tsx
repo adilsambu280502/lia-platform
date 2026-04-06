@@ -4,6 +4,7 @@ import { motion } from 'motion/react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Page } from '../types';
+import { CONTACTS } from '../constants';
 
 interface FooterProps {
   onPageChange?: (page: Page) => void;
@@ -86,6 +87,11 @@ export const Footer: React.FC<FooterProps> = ({ onPageChange }) => {
                 <li key={link.key}>
                   <Link 
                     to={link.path}
+                    onClick={() => {
+                      if (link.path === '/') {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                      }
+                    }}
                     className="text-gray-600 hover:text-[#E31E24] transition-colors font-medium text-sm md:text-base"
                   >
                     {link.label}
@@ -110,16 +116,16 @@ export const Footer: React.FC<FooterProps> = ({ onPageChange }) => {
               <li className="flex items-start space-x-4">
                 <MapPin className="text-[#E31E24] flex-shrink-0" size={24} />
                 <span className="text-gray-600 leading-relaxed">
-                  Rua António Feliciano de Castilho, Número 240, Vila Alice, Luanda, Angola.
+                  {CONTACTS.address}
                 </span>
               </li>
               <li className="flex items-start space-x-4">
                 <Phone className="text-[#E31E24] flex-shrink-0" size={24} />
-                <span className="text-gray-600 font-medium">+244 951 110 110</span>
+                <span className="text-gray-600 font-medium">{CONTACTS.phone}</span>
               </li>
               <li className="flex items-center space-x-4">
                 <Mail className="text-[#E31E24] flex-shrink-0" size={24} />
-                <span className="text-gray-600 font-medium">info@lia.ao</span>
+                <span className="text-gray-600 font-medium">{CONTACTS.email}</span>
               </li>
             </ul>
           </div>
@@ -141,7 +147,7 @@ export const Footer: React.FC<FooterProps> = ({ onPageChange }) => {
                 boxShadow: { duration: 1.5, repeat: Infinity, ease: "easeOut" } 
               }}
               className="w-full py-4 bg-[#E31E24] text-white font-bold rounded-full hover:bg-[#c41a1f] transition-all flex items-center justify-center space-x-2 shadow-xl relative z-10"
-              onClick={() => window.open('https://wa.me/244951110110', '_blank')}
+              onClick={() => window.open(CONTACTS.whatsapp, '_blank')}
             >
               <MessageCircle size={20} />
               <span>WhatsApp LIA</span>

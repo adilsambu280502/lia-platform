@@ -45,8 +45,9 @@ const INITIAL_SITE_CONTENT: SiteContent = {
   news: INITIAL_NEWS,
 };
 
-const MOCK_STUDENTS = {
-  // ... (rest of the student data remains the same)
+// DEMO DATA: This section contains example data for the Parent Portal (ERP).
+// In the next phase, these objects should be replaced by real API calls to the backend.
+const DEMO_STUDENTS = {
   joao: {
     id: 'joao',
     name: 'João Mendes',
@@ -119,7 +120,7 @@ export const useData = () => {
     return JSON.parse(saved);
   });
 
-  const students = MOCK_STUDENTS;
+  const students = DEMO_STUDENTS;
 
   const updateEducationLevel = (id: number, updates: Partial<EducationLevel>) => {
     const newContent = {

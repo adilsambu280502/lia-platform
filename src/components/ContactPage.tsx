@@ -5,6 +5,7 @@ import { MapContainer, TileLayer, Marker, Popup, ZoomControl } from 'react-leafl
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useTranslation } from 'react-i18next';
+import { CONTACTS } from '../constants';
 
 // Custom Marker Icon
 const customIcon = L.divIcon({
@@ -55,7 +56,7 @@ export const ContactPage: React.FC = () => {
                     <MapPin size={24} />
                   </div>
                   <h4 className="text-xl font-bold text-[#003366] mb-2 tracking-tight">{t('contact_page.location')}</h4>
-                  <p className="text-gray-500 font-medium leading-relaxed">{t('contact_page.address')}</p>
+                  <p className="text-gray-500 font-medium leading-relaxed">{CONTACTS.address}</p>
                 </div>
 
                 <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-xl transition-all group">
@@ -63,7 +64,7 @@ export const ContactPage: React.FC = () => {
                     <Phone size={24} />
                   </div>
                   <h4 className="text-xl font-bold text-[#003366] mb-2 tracking-tight">{t('contact_page.phone')}</h4>
-                  <p className="text-gray-500 font-medium leading-relaxed">+244 951 110 110</p>
+                  <p className="text-gray-500 font-medium leading-relaxed">{CONTACTS.phone}</p>
                 </div>
 
                 <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-xl transition-all group">
@@ -71,7 +72,7 @@ export const ContactPage: React.FC = () => {
                     <Mail size={24} />
                   </div>
                   <h4 className="text-xl font-bold text-[#003366] mb-2 tracking-tight">{t('contact_page.email_title')}</h4>
-                  <p className="text-gray-500 font-medium leading-relaxed">{t('contact_page.email_val')}</p>
+                  <p className="text-gray-500 font-medium leading-relaxed">{CONTACTS.email}</p>
                 </div>
 
                 <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-xl transition-all group">
@@ -122,7 +123,7 @@ export const ContactPage: React.FC = () => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => window.open('https://wa.me/244951110110', '_blank')}
+              onClick={() => window.open(CONTACTS.whatsapp, '_blank')}
               animate={{ 
                 boxShadow: ["0 0 0 0 rgba(37, 211, 102, 0.4)", "0 0 0 20px rgba(37, 211, 102, 0)"] 
               }}
