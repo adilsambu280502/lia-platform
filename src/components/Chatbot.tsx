@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { MessageCircle, X, Send, User, Bot, Phone } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { GoogleGenAI } from '@google/genai';
+import { useLocation } from 'react-router-dom';
 
 // Gemini API initialization moved inside component to prevent global hydration crashes
 
@@ -20,6 +21,7 @@ export const Chatbot: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation();
+  const location = useLocation();
 
   // Hide chatbot when mobile nav menu opens
   useEffect(() => {
@@ -45,12 +47,8 @@ export const Chatbot: React.FC = () => {
         if (!apiKey) {
           console.warn('LIA Assistant: Chave da API Gemini não detetada. O Chatbot vai operar em modo fallback (encaminhamento humano).');
         } else {
-          // Initialize dynamically inside the scope
-          const ai = new GoogleGenAI({ apiKey });
-          chatRef.current = ai.chats.create({
-            model: 'gemini-3-flash-preview',
-            config: {
-              systemInstruction: `És o Assistente Virtual oficial da Luanda International Academy (LIA).
+          // Determine the context based on current route
+          let instructionContext = `És o Assistente Virtual oficial da Luanda International Academy (LIA).
               
               IDENTIDADE: Prestável, educado, caloroso e profissional. Atuas como um embaixador da escola.
               
@@ -63,7 +61,34 @@ export const Chatbot: React.FC = () => {
               
               CONHECIMENTO: A LIA é uma escola licenciada pela Cambridge na Vila Alice, Luanda. Oferecemos currículo internacional.
               
-              POLÍTICA DE ESCALONAMENTO: Para perguntas complexas sobre propinas, processos detalhados de admissão ou se o utilizador quiser falar com um humano, fornece gentilmente o link do WhatsApp: https://wa.me/244951110110 ou o número +244 951 110 110.`,
+              POLÍTICA DE ESCALONAMENTO: Para perguntas complexas sobre propinas, processos detalhados de admissão ou se o utilizador quiser falar com um humano, fornece gentilmente o link do WhatsApp: https://wa.me/244951110110 ou o número +244 951 110 110.`;
+
+          if (location.pathname.startsWith('/admin')) {
+             instructionContext = `És o Copilot/Assistente Virtual Inteligente do *Painel de Administração* da Luanda International Academy (LIA).
+             
+             O TEU PAPEL: Ajudar diretores, administradores e gerentes escolares a usar a plataforma de Gestão Centralizada. Deves ser técnico, direto aos factos, e ultra-produtivo.
+             
+             O QUE SABES SOBRE ESTE PAINEL: 
+             - Dashboard (Visão Geral): Apresenta contagens em tempo real como "Visitas Hoje", "Novas Matrículas", e KPIs de receita e propinas.
+             - Gestão de Slides: Área para gerir e trocar as imagens principais (Hero) do site institucional.
+             - Gestão de Páginas: Área de edição de conteúdo das páginas públicas (Sobre Nós, Admissões, Oferta Educativa).
+             - Portal ERP: A interligação desta gestão com o portal onde os encarregados gerem notas e pagamentos.
+             
+             INSTRUÇÕES DE AJUDA: Se o Admin perguntar "Como alterar as imagens do site?", responde claramente "Basta aceder ao separador 'SLIDES' no menu superior, carregar a sua nova imagem e clicar no botão de guardar". Sê o parceiro de produtividade ideal do gestor da escola.`;
+          } else if (location.pathname.startsWith('/erp')) {
+             instructionContext = `És o Assistente Inteligente do *Portal dos Encarregados de Educação* da Luanda International Academy (LIA).
+             
+             O TEU PAPEL: Ajudar os pais a navegar no portal para verem pagamentos, ementas, presenças, faturação e calendário académico dos seus educandos.
+             
+             TOM DE VOZ: Muito paciente, tranquilizador e prestável, ajudando os pais sempre com cortesia.`;
+          }
+
+          // Initialize dynamically inside the scope
+          const ai = new GoogleGenAI({ apiKey });
+          chatRef.current = ai.chats.create({
+            model: 'gemini-3-flash-preview',
+            config: {
+              systemInstruction: instructionContext,
             },
           });
         }
@@ -71,7 +96,7 @@ export const Chatbot: React.FC = () => {
         console.error("Failed to initialize chat:", error);
       }
     }
-  }, [isOpen, messages.length, t]);
+  }, [isOpen, messages.length, t, location.pathname]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
