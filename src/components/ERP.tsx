@@ -466,23 +466,214 @@ export const ERP: React.FC<ERPProps> = ({ onLogout }) => {
           </motion.div>
         )}
 
-        {activeTab !== 'dashboard' && (
-          <div className="flex flex-col items-center justify-center py-24 text-center px-6">
-            <div className="w-24 h-24 bg-slate-100 rounded-[2rem] flex items-center justify-center text-slate-300 mb-8 border border-slate-200 shadow-inner">
-              <LayoutDashboard size={48} />
+        {/* ── NOTAS ── */}
+        {activeTab === 'grades' && (
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className={`${isMobile ? 'text-2xl' : 'text-3xl'} font-black text-slate-900 tracking-tight`}>Pautas & Notas</h1>
+                <p className="text-sm text-slate-500 font-medium">Ano letivo 2025/26 — <span className="text-lia-navy font-bold">{currentStudent.grade}</span></p>
+              </div>
+              <button onClick={handleExport} className="flex items-center space-x-2 px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all">
+                <Download size={15} /><span>Exportar</span>
+              </button>
             </div>
-            <h2 className="text-2xl font-black text-slate-900 mb-4 tracking-tight">Módulo em Desenvolvimento</h2>
-            <p className="text-slate-500 max-w-sm mx-auto leading-relaxed font-medium">
-              Estamos a trabalhar para lhe oferecer a melhor experiência digital. 
-              Esta secção estará disponível brevemente no seu Portal Premium.
-            </p>
-            <button 
-              onClick={() => setActiveTab('dashboard')}
-              className="mt-10 px-10 py-4 bg-[#003366] text-white font-black rounded-2xl hover:bg-[#002244] hover:scale-105 active:scale-95 transition-all shadow-xl shadow-blue-900/10 uppercase tracking-widest text-xs"
-            >
-              Voltar ao Dashboard
-            </button>
-          </div>
+            {[
+              { subject: 'Matemática', t1: '18.5', t2: '19.0', t3: '—', final: '18.8', status: 'high', icon: '📐' },
+              { subject: 'Português', t1: '16.5', t2: '17.5', t3: '—', final: '17.0', status: 'mid', icon: '📖' },
+              { subject: 'Inglês', t1: '18.0', t2: '18.5', t3: '—', final: '18.3', status: 'high', icon: '🌍' },
+              { subject: 'Ciências Nat.', t1: '15.5', t2: '16.0', t3: '—', final: '15.8', status: 'mid', icon: '🔬' },
+              { subject: 'História', t1: '17.0', t2: '17.5', t3: '—', final: '17.3', status: 'high', icon: '🏛️' },
+              { subject: 'Educação Física', t1: '19.5', t2: '20.0', t3: '—', final: '19.8', status: 'high', icon: '⚽' },
+            ].map((row, idx) => (
+              <div key={idx} className="bg-white/80 backdrop-blur-xl rounded-2xl border border-white shadow-sm p-5 flex items-center gap-4">
+                <div className="text-2xl w-10 text-center flex-shrink-0">{row.icon}</div>
+                <div className="flex-1 min-w-0">
+                  <p className="font-black text-slate-900 text-sm">{row.subject}</p>
+                  <div className="flex gap-3 mt-1.5 flex-wrap">
+                    {[['1.º T', row.t1], ['2.º T', row.t2], ['3.º T', row.t3]].map(([label, val]) => (
+                      <span key={label} className="text-[10px] font-bold text-slate-400">{label}: <span className="text-slate-700">{val}</span></span>
+                    ))}
+                  </div>
+                </div>
+                <span className={`text-xl font-black px-4 py-2 rounded-xl ${row.status === 'high' ? 'bg-emerald-50 text-emerald-600' : 'bg-blue-50 text-blue-600'}`}>{row.final}</span>
+              </div>
+            ))}
+          </motion.div>
+        )}
+
+        {/* ── BOLETIM ── */}
+        {activeTab === 'reports' && (
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className={`${isMobile ? 'text-2xl' : 'text-3xl'} font-black text-slate-900 tracking-tight`}>Boletim Escolar</h1>
+                <p className="text-sm text-slate-500 font-medium">{currentStudent.name} — {currentStudent.grade}</p>
+              </div>
+              <button onClick={handleExport} className="flex items-center space-x-2 px-4 py-2.5 bg-lia-navy text-white rounded-xl text-sm font-bold hover:bg-[#002244] transition-all shadow-premium">
+                <Download size={15} /><span>Baixar PDF</span>
+              </button>
+            </div>
+            <div className="bg-white/80 backdrop-blur-xl rounded-3xl border border-white shadow-sm overflow-hidden">
+              <div className="bg-gradient-to-r from-lia-navy to-[#0a4f8e] p-6 text-white">
+                <div className="flex items-center gap-4">
+                  <img src={currentStudent.avatar} alt={currentStudent.name} className="w-14 h-14 rounded-2xl border-2 border-white/30" />
+                  <div>
+                    <p className="font-black text-lg">{currentStudent.name}</p>
+                    <p className="text-white/70 text-sm font-medium">{currentStudent.grade} · Ano Letivo 2025/26</p>
+                    <p className="text-white/60 text-xs mt-1">Currículo Cambridge International</p>
+                  </div>
+                  <div className="ml-auto text-right">
+                    <p className="text-white/60 text-[10px] uppercase tracking-widest">Média Global</p>
+                    <p className="text-4xl font-black">{currentStudent.stats.average}</p>
+                  </div>
+                </div>
+              </div>
+              <div className="p-6 grid grid-cols-2 md:grid-cols-4 gap-4">
+                {[
+                  { label: 'Assiduidade', value: currentStudent.stats.attendance, color: 'text-emerald-600' },
+                  { label: 'Comportamento', value: currentStudent.stats.behavior, color: 'text-purple-600' },
+                  { label: 'Propinas', value: currentStudent.stats.tuition, color: 'text-amber-600' },
+                  { label: 'Escalão', value: 'Excelência', color: 'text-lia-red' },
+                ].map((item, idx) => (
+                  <div key={idx} className="bg-slate-50 rounded-2xl p-4 text-center">
+                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">{item.label}</p>
+                    <p className={`font-black text-sm ${item.color}`}>{item.value}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="px-6 pb-6">
+                <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-3">Observações do Diretor de Turma</p>
+                <p className="text-sm text-slate-600 leading-relaxed font-medium bg-slate-50 rounded-2xl p-4">
+                  {currentStudent.name} demonstra um percurso académico consistentemente positivo. Revela elevada maturidade, espírito de equipa e excelente postura na sala de aula. É um exemplo para a turma e um prazer tê-lo/la na LIA.
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        )}
+
+        {/* ── MENSAGENS ── */}
+        {activeTab === 'messages' && (
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
+            <h1 className={`${isMobile ? 'text-2xl' : 'text-3xl'} font-black text-slate-900 tracking-tight`}>Mensagens</h1>
+            {[
+              { author: 'Prof. Ana Silva', role: 'Matemática', time: 'Há 2h', excerpt: 'O João tem demonstrado grande evolução em álgebra. Está de parabéns pelo esforço e dedicação nas últimas semanas.', unread: true, avatar: 'AS' },
+              { author: 'Direção Pedagógica', role: 'Escola', time: 'Há 1 dia', excerpt: 'Circular n.º 12/2026 — Decorrem as renovações de matrícula para o próximo ano letivo. Prazo limite: 30 de Abril.', unread: true, avatar: 'DP' },
+              { author: 'Secretaria LIA', role: 'Administrativo', time: 'Há 3 dias', excerpt: 'O seu pagamento de Março foi processado com sucesso. Obrigado pela pontualidade!', unread: false, avatar: 'SL' },
+              { author: 'Prof. Carlos Neto', role: 'Educação Física', time: 'Há 1 semana', excerpt: 'As inscrições para a equipa de futebol estão abertas. O João tem perfil para participar.', unread: false, avatar: 'CN' },
+            ].map((msg, idx) => (
+              <div key={idx} className={`bg-white/80 backdrop-blur-xl rounded-2xl border shadow-sm p-5 flex gap-4 cursor-pointer hover:shadow-premium transition-all ${msg.unread ? 'border-lia-navy/20' : 'border-white'}`}>
+                <div className={`w-11 h-11 rounded-2xl flex-shrink-0 flex items-center justify-center font-black text-sm ${msg.unread ? 'bg-lia-navy text-white' : 'bg-slate-100 text-slate-500'}`}>{msg.avatar}</div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-start justify-between gap-2">
+                    <div>
+                      <p className="font-black text-slate-900 text-sm">{msg.author}</p>
+                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{msg.role}</p>
+                    </div>
+                    <div className="flex items-center gap-2 flex-shrink-0">
+                      {msg.unread && <span className="w-2 h-2 bg-lia-red rounded-full" />}
+                      <span className="text-[10px] text-slate-400 font-bold">{msg.time}</span>
+                    </div>
+                  </div>
+                  <p className="text-xs text-slate-500 mt-2 leading-relaxed line-clamp-2 font-medium">{msg.excerpt}</p>
+                </div>
+              </div>
+            ))}
+          </motion.div>
+        )}
+
+        {/* ── NOTIFICAÇÕES ── */}
+        {activeTab === 'notifications' && (
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
+            <h1 className={`${isMobile ? 'text-2xl' : 'text-3xl'} font-black text-slate-900 tracking-tight`}>Notificações</h1>
+            {[
+              { title: 'Nova nota registada', desc: 'Matemática — Teste de Álgebra: 19.0 valores', time: 'Hoje, 09:15', color: 'bg-emerald-50 text-emerald-600', icon: GraduationCap },
+              { title: 'Reunião de Pais agendada', desc: '05 de Abril às 17h30 — Sala de Reuniões A', time: 'Hoje, 08:00', color: 'bg-blue-50 text-blue-600', icon: Calendar },
+              { title: 'Propina de Março confirmada', desc: 'Pagamento processado com sucesso — 95.000 Kz', time: 'Ontem, 14:22', color: 'bg-amber-50 text-amber-600', icon: CreditCard },
+              { title: 'Nova mensagem da Escola', desc: 'Prof. Ana Silva enviou uma mensagem sobre o progresso do João', time: 'Há 2 dias', color: 'bg-purple-50 text-purple-600', icon: MessageSquare },
+              { title: 'Entrega de trabalho amanhã', desc: 'Ciências Naturais — Relatório do Laboratório', time: 'Há 3 dias', color: 'bg-red-50 text-red-600', icon: FileText },
+            ].map((item, idx) => (
+              <div key={idx} className="bg-white/80 backdrop-blur-xl rounded-2xl border border-white shadow-sm p-5 flex gap-4">
+                <div className={`w-10 h-10 rounded-xl flex-shrink-0 flex items-center justify-center ${item.color}`}>
+                  <item.icon size={18} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="font-black text-slate-900 text-sm">{item.title}</p>
+                  <p className="text-xs text-slate-500 font-medium mt-1">{item.desc}</p>
+                </div>
+                <span className="text-[10px] text-slate-400 font-bold flex-shrink-0">{item.time}</span>
+              </div>
+            ))}
+          </motion.div>
+        )}
+
+        {/* ── PAGAMENTOS ── */}
+        {activeTab === 'payments' && (
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
+            <h1 className={`${isMobile ? 'text-2xl' : 'text-3xl'} font-black text-slate-900 tracking-tight`}>Pagamentos & Propinas</h1>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {[
+                { label: 'Propina Mensal', value: '95.000 Kz', icon: CreditCard, color: 'text-lia-navy', bg: 'bg-blue-50' },
+                { label: 'Saldo em Dívida', value: '0 Kz', icon: TrendingUp, color: 'text-emerald-600', bg: 'bg-emerald-50' },
+                { label: 'Próximo Vencimento', value: '01 Maio', icon: Calendar, color: 'text-amber-600', bg: 'bg-amber-50' },
+              ].map((card, idx) => (
+                <div key={idx} className="bg-white/80 backdrop-blur-xl rounded-2xl border border-white shadow-sm p-5 flex items-center gap-4">
+                  <div className={`p-2.5 ${card.bg} ${card.color} rounded-xl`}><card.icon size={20} /></div>
+                  <div><p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{card.label}</p><p className="font-black text-slate-900 text-lg">{card.value}</p></div>
+                </div>
+              ))}
+            </div>
+            <div className="bg-white/80 backdrop-blur-xl rounded-3xl border border-white shadow-sm overflow-hidden">
+              <div className="p-5 border-b border-slate-100">
+                <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Histórico de Pagamentos 2025/26</p>
+              </div>
+              {[
+                { month: 'Março 2026', amount: '95.000 Kz', status: 'Pago', date: '28 Mar 2026', ref: 'LIA-2026-03' },
+                { month: 'Fevereiro 2026', amount: '95.000 Kz', status: 'Pago', date: '26 Fev 2026', ref: 'LIA-2026-02' },
+                { month: 'Janeiro 2026', amount: '95.000 Kz', status: 'Pago', date: '29 Jan 2026', ref: 'LIA-2026-01' },
+                { month: 'Dezembro 2025', amount: '95.000 Kz', status: 'Pago', date: '27 Dez 2025', ref: 'LIA-2025-12' },
+              ].map((pay, idx) => (
+                <div key={idx} className="flex items-center gap-4 p-5 border-b border-slate-50 last:border-0 hover:bg-slate-50/50 transition-colors">
+                  <div className="w-10 h-10 bg-emerald-50 rounded-xl flex-shrink-0 flex items-center justify-center">
+                    <CreditCard size={16} className="text-emerald-600" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-black text-slate-900 text-sm">{pay.month}</p>
+                    <p className="text-[10px] text-slate-400 font-bold">{pay.date} · Ref: {pay.ref}</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="font-black text-slate-900 text-sm">{pay.amount}</p>
+                    <span className="text-[10px] font-black text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full">{pay.status}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        )}
+
+        {/* ── HISTÓRICO ── */}
+        {activeTab === 'history' && (
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
+            <h1 className={`${isMobile ? 'text-2xl' : 'text-3xl'} font-black text-slate-900 tracking-tight`}>Histórico Académico</h1>
+            {[
+              { year: '2024/25', grade: '6.º Ano A', avg: '17.8', status: 'Aprovado', icon: '🏆' },
+              { year: '2023/24', grade: '5.º Ano A', avg: '17.2', status: 'Aprovado', icon: '⭐' },
+              { year: '2022/23', grade: '4.º Ano A', avg: '16.5', status: 'Aprovado', icon: '✅' },
+              { year: '2021/22', grade: '3.º Ano B', avg: '15.8', status: 'Aprovado', icon: '✅' },
+            ].map((record, idx) => (
+              <div key={idx} className="bg-white/80 backdrop-blur-xl rounded-2xl border border-white shadow-sm p-5 flex gap-4 items-center">
+                <span className="text-2xl">{record.icon}</span>
+                <div className="flex-1">
+                  <p className="font-black text-slate-900 text-sm">{record.grade}</p>
+                  <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">{record.year}</p>
+                </div>
+                <div className="text-right">
+                  <p className="font-black text-lia-navy text-xl">{record.avg}</p>
+                  <span className="text-[10px] font-black text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full">{record.status}</span>
+                </div>
+              </div>
+            ))}
+          </motion.div>
         )}
       </div>
     </main>
