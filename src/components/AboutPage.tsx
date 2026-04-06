@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Target, Heart, Globe, Shield, Award, Users } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export const AboutPage: React.FC = () => {
+  const { t } = useTranslation();
   const [image, setImage] = useState('/images/about-visao.jpg');
 
   useEffect(() => {
@@ -18,9 +20,9 @@ export const AboutPage: React.FC = () => {
       <section className="bg-[#003366] py-24 mb-16 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-96 h-96 bg-[#E31E24] opacity-10 rounded-full blur-3xl -mr-48 -mt-48" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <h1 className="text-5xl md:text-7xl font-extrabold text-white mb-6 tracking-tight">Quem Somos</h1>
+          <h1 className="text-5xl md:text-7xl font-extrabold text-white mb-6 tracking-tight">{t('about_page.header_title')}</h1>
           <p className="text-xl text-white/80 max-w-3xl mx-auto font-medium leading-relaxed">
-            Muito Mais do que uma Escola. Um Projeto Pedagógico Global focado na excelência e no desenvolvimento integral.
+            {t('about_page.header_desc')}
           </p>
         </div>
       </section>
@@ -29,17 +31,13 @@ export const AboutPage: React.FC = () => {
         {/* Main Vision */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
           <div>
-            <h2 className="text-sm font-bold text-[#E31E24] uppercase tracking-widest mb-4">A Nossa Visão</h2>
+            <h2 className="text-sm font-bold text-[#E31E24] uppercase tracking-widest mb-4">{t('about_page.vision')}</h2>
             <h3 className="text-4xl font-extrabold text-[#003366] mb-6 tracking-tight">
-              Construímos os Alicerces do Futuro
+              {t('about_page.vision_title')}
             </h3>
             <div className="space-y-6 text-lg text-gray-600 leading-relaxed">
-              <p>
-                Não nos limitamos a ensinar. Sob a liderança de <strong>Geneva Caddell</strong>, a Luanda International Academy constrói os alicerces cognitivos e culturais essenciais nas primeiras etapas da vida escolar.
-              </p>
-              <p>
-                O nosso compromisso é com o desenvolvimento integral de cada criança. Garantimos a fluência linguística e o estímulo ao pensamento crítico desde o primeiro dia de aulas, preparando os teus filhos para os desafios de um mundo sem fronteiras.
-              </p>
+              <p>{t('about_page.vision_p1')}</p>
+              <p>{t('about_page.vision_p2')}</p>
             </div>
           </div>
           <div className="relative">
@@ -55,17 +53,17 @@ export const AboutPage: React.FC = () => {
         {/* Core Values */}
         <div className="mb-24">
           <div className="text-center mb-16">
-            <h2 className="text-sm font-bold text-[#E31E24] uppercase tracking-widest mb-4">Os Nossos Pilares</h2>
-            <h3 className="text-4xl font-extrabold text-[#003366] tracking-tight">Valores que nos Guiam</h3>
+            <h2 className="text-sm font-bold text-[#E31E24] uppercase tracking-widest mb-4">{t('about_page.pillars')}</h2>
+            <h3 className="text-4xl font-extrabold text-[#003366] tracking-tight">{t('about_page.pillars_title')}</h3>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
-              { icon: Globe, title: 'Cidadania Global', desc: 'Preparamos alunos para compreenderem e atuarem num mundo interligado.' },
-              { icon: Award, title: 'Excelência Académica', desc: 'Rigor e inovação pedagógica em todas as disciplinas do currículo.' },
-              { icon: Heart, title: 'Desenvolvimento Integral', desc: 'Foco no bem-estar emocional, social e físico de cada criança.' },
-              { icon: Shield, title: 'Ambiente Seguro', desc: 'Instalações modernas e seguras na Vila Alice, Luanda.' },
-              { icon: Users, title: 'Comunidade', desc: 'Parceria forte entre escola, alunos e encarregados de educação.' },
-              { icon: Target, title: 'Pensamento Crítico', desc: 'Estímulo constante à resolução de problemas e criatividade.' },
+              { icon: Globe, title: t('about_page.pillar_citizenship'), desc: t('about_page.pillar_citizenship_desc') },
+              { icon: Award, title: t('about_page.pillar_excellence'), desc: t('about_page.pillar_excellence_desc') },
+              { icon: Heart, title: t('about_page.pillar_integral'), desc: t('about_page.pillar_integral_desc') },
+              { icon: Shield, title: t('about_page.pillar_safety'), desc: t('about_page.pillar_safety_desc') },
+              { icon: Users, title: t('about_page.pillar_community'), desc: t('about_page.pillar_community_desc') },
+              { icon: Target, title: t('about_page.pillar_critical'), desc: t('about_page.pillar_critical_desc') },
             ].map((value, idx) => (
               <div key={idx} className="bg-gray-50 p-8 rounded-3xl border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all group">
                 <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center text-[#003366] mb-6 shadow-sm group-hover:bg-[#E31E24] group-hover:text-white transition-colors">

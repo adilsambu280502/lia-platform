@@ -4,6 +4,7 @@ import { motion } from 'motion/react';
 import { MapContainer, TileLayer, Marker, Popup, ZoomControl } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import { useTranslation } from 'react-i18next';
 
 // Custom Marker Icon
 const customIcon = L.divIcon({
@@ -26,15 +27,16 @@ const customIcon = L.divIcon({
 const position: [number, number] = [-8.828556, 13.250556];
 
 export const ContactPage: React.FC = () => {
+  const { t } = useTranslation();
   return (
     <div className="pt-32 pb-24">
       {/* Header */}
       <section className="bg-[#003366] py-24 mb-16 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-96 h-96 bg-[#E31E24] opacity-10 rounded-full blur-3xl -mr-48 -mt-48" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <h1 className="text-5xl md:text-7xl font-extrabold text-white mb-6 tracking-tight">Dê o Primeiro Passo para o Futuro do Seu Filho.</h1>
+          <h1 className="text-5xl md:text-7xl font-extrabold text-white mb-6 tracking-tight">{t('contact_page.header_title')}</h1>
           <p className="text-xl text-white/80 max-w-2xl mx-auto font-medium leading-relaxed">
-            As nossas turmas têm vagas limitadas para assegurar a máxima qualidade e a atenção individual que cada aluno exige. Venha conhecer as nossas instalações e descubra o ambiente onde o seu filho vai crescer.
+            {t('contact_page.header_desc')}
           </p>
         </div>
       </section>
@@ -44,23 +46,23 @@ export const ContactPage: React.FC = () => {
           {/* Contact Details */}
           <div className="space-y-12">
             <div>
-              <h2 className="text-sm font-bold text-[#E31E24] uppercase tracking-widest mb-4">Informação de Contacto</h2>
-              <h3 className="text-4xl font-extrabold text-[#003366] mb-10 tracking-tight">Estamos à Sua Espera</h3>
+              <h2 className="text-sm font-bold text-[#E31E24] uppercase tracking-widest mb-4">{t('contact_page.info_title')}</h2>
+              <h3 className="text-4xl font-extrabold text-[#003366] mb-10 tracking-tight">{t('contact_page.info_subtitle')}</h3>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-xl transition-all group">
                   <div className="w-12 h-12 bg-[#003366]/5 rounded-2xl flex items-center justify-center text-[#003366] mb-6 group-hover:bg-[#003366] group-hover:text-white transition-all">
                     <MapPin size={24} />
                   </div>
-                  <h4 className="text-xl font-bold text-[#003366] mb-2 tracking-tight">Localização</h4>
-                  <p className="text-gray-500 font-medium leading-relaxed">Rua António Feliciano de Castilho, Número 240, Vila Alice, Luanda, Angola.</p>
+                  <h4 className="text-xl font-bold text-[#003366] mb-2 tracking-tight">{t('contact_page.location')}</h4>
+                  <p className="text-gray-500 font-medium leading-relaxed">{t('contact_page.address')}</p>
                 </div>
 
                 <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-xl transition-all group">
                   <div className="w-12 h-12 bg-[#003366]/5 rounded-2xl flex items-center justify-center text-[#003366] mb-6 group-hover:bg-[#003366] group-hover:text-white transition-all">
                     <Phone size={24} />
                   </div>
-                  <h4 className="text-xl font-bold text-[#003366] mb-2 tracking-tight">Telefone</h4>
+                  <h4 className="text-xl font-bold text-[#003366] mb-2 tracking-tight">{t('contact_page.phone')}</h4>
                   <p className="text-gray-500 font-medium leading-relaxed">+244 951 110 110<br/>+244 993 777 777</p>
                 </div>
 
@@ -68,23 +70,23 @@ export const ContactPage: React.FC = () => {
                   <div className="w-12 h-12 bg-[#003366]/5 rounded-2xl flex items-center justify-center text-[#003366] mb-6 group-hover:bg-[#003366] group-hover:text-white transition-all">
                     <Mail size={24} />
                   </div>
-                  <h4 className="text-xl font-bold text-[#003366] mb-2 tracking-tight">E-mail</h4>
-                  <p className="text-gray-500 font-medium leading-relaxed">info@lia.ao</p>
+                  <h4 className="text-xl font-bold text-[#003366] mb-2 tracking-tight">{t('contact_page.email_title')}</h4>
+                  <p className="text-gray-500 font-medium leading-relaxed">{t('contact_page.email_val')}</p>
                 </div>
 
                 <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-xl transition-all group">
                   <div className="w-12 h-12 bg-[#003366]/5 rounded-2xl flex items-center justify-center text-[#003366] mb-6 group-hover:bg-[#003366] group-hover:text-white transition-all">
                     <Clock size={24} />
                   </div>
-                  <h4 className="text-xl font-bold text-[#003366] mb-2 tracking-tight">Horário</h4>
-                  <p className="text-gray-500 font-medium leading-relaxed">Seg - Sex: 07:30 - 17:00</p>
+                  <h4 className="text-xl font-bold text-[#003366] mb-2 tracking-tight">{t('contact_page.hours')}</h4>
+                  <p className="text-gray-500 font-medium leading-relaxed">{t('contact_page.hours_val')}</p>
                 </div>
               </div>
             </div>
 
             {/* Social Media */}
             <div>
-              <h4 className="text-xl font-bold text-[#003366] mb-6 tracking-tight">Siga-nos nas Redes Sociais</h4>
+              <h4 className="text-xl font-bold text-[#003366] mb-6 tracking-tight">{t('contact_page.social')}</h4>
               <div className="flex space-x-4">
                 <a 
                   href="https://www.instagram.com/luandainternationalacademy" 
@@ -130,7 +132,7 @@ export const ContactPage: React.FC = () => {
               className="w-full py-5 bg-[#25D366] text-white font-bold rounded-2xl hover:bg-[#20ba5a] transition-all flex items-center justify-center space-x-3 shadow-xl text-lg"
             >
               <MessageCircle size={24} />
-              <span>Falar Connosco no WhatsApp</span>
+              <span>{t('contact_page.whatsapp')}</span>
             </motion.button>
           </div>
 
@@ -156,16 +158,16 @@ export const ContactPage: React.FC = () => {
                       <MapPin size={24} />
                     </div>
                     <h4 className="font-black text-lia-navy mb-1 uppercase tracking-tight">LIA Academy</h4>
-                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Excelência em Luanda</p>
+                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">{t('contact_page.map_marker')}</p>
                   </div>
                 </Popup>
               </Marker>
             </MapContainer>
 
             <div className="absolute top-8 left-8 bg-white/90 backdrop-blur-md p-6 rounded-3xl shadow-xl border border-white/20 max-w-xs z-[400] pointer-events-none hidden md:block">
-              <h4 className="text-lg font-bold text-[#003366] mb-2 tracking-tight">Visite a LIA</h4>
+              <h4 className="text-lg font-bold text-[#003366] mb-2 tracking-tight">{t('contact_page.map_title')}</h4>
               <p className="text-sm text-gray-600 font-medium leading-relaxed">
-                Estamos localizados no coração de Luanda, com acessos fáceis e segurança 24h.
+                {t('contact_page.map_desc')}
               </p>
             </div>
           </div>

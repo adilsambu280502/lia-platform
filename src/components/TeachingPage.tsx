@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { BookOpen, Languages, Palette, Activity, Brain, Globe2 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export const TeachingPage: React.FC = () => {
+  const { t } = useTranslation();
   const [image, setImage] = useState('/images/teaching-curriculo.jpg');
 
   useEffect(() => {
@@ -18,9 +20,9 @@ export const TeachingPage: React.FC = () => {
       <section className="bg-[#003366] py-24 mb-16 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-96 h-96 bg-[#E31E24] opacity-10 rounded-full blur-3xl -mr-48 -mt-48" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <h1 className="text-5xl md:text-7xl font-extrabold text-white mb-6 tracking-tight">Oferta Educativa</h1>
+          <h1 className="text-5xl md:text-7xl font-extrabold text-white mb-6 tracking-tight">{t('teaching_page.header_title')}</h1>
           <p className="text-xl text-white/80 max-w-3xl mx-auto font-medium leading-relaxed">
-            Formação Estruturada para o Futuro. Imersão multilingue e desenvolvimento integral.
+            {t('teaching_page.header_desc')}
           </p>
         </div>
       </section>
@@ -29,27 +31,27 @@ export const TeachingPage: React.FC = () => {
         {/* Main Pillars */}
         <div className="mb-24">
           <div className="text-center mb-16">
-            <h2 className="text-sm font-bold text-[#E31E24] uppercase tracking-widest mb-4">A Nossa Abordagem</h2>
-            <h3 className="text-4xl font-extrabold text-[#003366] tracking-tight">O Método Pedagógico LIA</h3>
+            <h2 className="text-sm font-bold text-[#E31E24] uppercase tracking-widest mb-4">{t('teaching_page.approach')}</h2>
+            <h3 className="text-4xl font-extrabold text-[#003366] tracking-tight">{t('teaching_page.approach_title')}</h3>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            {[
+             {[
               {
                 icon: Brain,
-                title: 'Ensino Infantil e Primário',
-                desc: 'Foco absoluto no desenvolvimento motor, cognitivo e social da criança, respeitando o ritmo individual de cada aluno.',
+                title: t('teaching_page.method_primary'),
+                desc: t('teaching_page.method_primary_desc'),
                 color: 'bg-blue-500'
               },
               {
                 icon: Languages,
-                title: 'Imersão Multilingue',
-                desc: 'Aulas planeadas para garantir uma aquisição de vocabulário natural e fluente nas línguas mais relevantes do cenário global.',
+                title: t('teaching_page.method_languages'),
+                desc: t('teaching_page.method_languages_desc'),
                 color: 'bg-red-500'
               },
               {
                 icon: Palette,
-                title: 'Atividades de Enriquecimento',
-                desc: 'Oficinas extracurriculares desenhadas para estimular a criatividade, a resolução de problemas e o trabalho de equipa.',
+                title: t('teaching_page.method_activities'),
+                desc: t('teaching_page.method_activities_desc'),
                 color: 'bg-green-500'
               }
             ].map((pillar, idx) => (
@@ -79,28 +81,26 @@ export const TeachingPage: React.FC = () => {
                   <Globe2 size={24} />
                 </div>
                 <div>
-                  <p className="text-sm font-bold text-gray-400 uppercase tracking-widest">Línguas</p>
-                  <p className="font-extrabold text-[#003366]">PT, EN, FR, AR</p>
+                  <p className="text-sm font-bold text-gray-400 uppercase tracking-widest">{t('teaching_page.langs')}</p>
+                  <p className="font-extrabold text-[#003366]">{t('teaching_page.langs_list')}</p>
                 </div>
               </div>
             </div>
           </div>
           <div>
-            <h2 className="text-sm font-bold text-[#E31E24] uppercase tracking-widest mb-4">Currículo Global</h2>
+            <h2 className="text-sm font-bold text-[#E31E24] uppercase tracking-widest mb-4">{t('teaching_page.curriculum')}</h2>
             <h3 className="text-4xl font-extrabold text-[#003366] mb-6 tracking-tight">
-              Preparação para um Mundo Sem Fronteiras
+              {t('teaching_page.curriculum_title')}
             </h3>
             <div className="space-y-6 text-lg text-gray-600 leading-relaxed">
-              <p>
-                A nossa matriz curricular é desenhada para ir além do ensino tradicional. Integramos o Português, Inglês e Francês no dia-a-dia dos alunos, com uma introdução pioneira ao Árabe.
-              </p>
+              <p>{t('teaching_page.curriculum_desc')}</p>
               <ul className="space-y-4 mt-8">
                 {[
-                  'Fluência linguística natural desde a creche',
-                  'Desenvolvimento do pensamento crítico e lógico',
-                  'Integração de tecnologia nas salas de aula',
-                  'Forte componente de artes e desporto',
-                  'Acompanhamento psicopedagógico contínuo'
+                  t('teaching_page.bull1'),
+                  t('teaching_page.bull2'),
+                  t('teaching_page.bull3'),
+                  t('teaching_page.bull4'),
+                  t('teaching_page.bull5')
                 ].map((item, idx) => (
                   <li key={idx} className="flex items-start space-x-3">
                     <div className="w-6 h-6 bg-[#E31E24]/10 rounded-full flex items-center justify-center text-[#E31E24] flex-shrink-0 mt-1">

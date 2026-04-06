@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { CheckCircle2, ChevronDown, ChevronUp, Send } from 'lucide-react';
 import { FAQS } from '../constants';
+import { useTranslation } from 'react-i18next';
 
 export const AdmissionsPage: React.FC = () => {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     studentName: '',
     birthDate: '',
@@ -99,7 +101,7 @@ export const AdmissionsPage: React.FC = () => {
             transition={{ delay: 0.5 }}
             className="text-4xl md:text-5xl font-extrabold text-[#003366] mb-6 tracking-tight"
           >
-            Candidatura Submetida!
+            {t('admissions_page.success_title')}
           </motion.h2>
 
           <motion.p 
@@ -108,7 +110,7 @@ export const AdmissionsPage: React.FC = () => {
             transition={{ delay: 0.6 }}
             className="text-xl text-gray-600 mb-12 leading-relaxed max-w-2xl mx-auto"
           >
-            Obrigado pelo seu interesse na LIA. A nossa equipa de admissões irá analisar a informação e entrará em contacto consigo brevemente para agendar uma visita.
+            {t('admissions_page.success_desc')}
           </motion.p>
 
           {/* Testimonial Section */}
@@ -151,7 +153,7 @@ export const AdmissionsPage: React.FC = () => {
               onClick={() => setSubmitted(false)}
               className="px-10 py-4 bg-[#003366] text-white font-bold rounded-full hover:bg-[#002244] transition-all shadow-xl"
             >
-              Voltar ao Formulário
+              {t('admissions_page.back_form')}
             </motion.button>
             <motion.button
               whileHover={{ scale: 1.05 }}
@@ -159,7 +161,7 @@ export const AdmissionsPage: React.FC = () => {
               className="px-10 py-4 bg-white text-[#003366] border-2 border-[#003366] font-bold rounded-full hover:bg-gray-50 transition-all"
               onClick={() => window.location.href = '/'}
             >
-              Ir para a Home
+              {t('admissions_page.go_home')}
             </motion.button>
           </motion.div>
         </motion.div>
@@ -173,9 +175,9 @@ export const AdmissionsPage: React.FC = () => {
       <section className="bg-[#003366] py-24 mb-16 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-96 h-96 bg-[#E31E24] opacity-10 rounded-full blur-3xl -mr-48 -mt-48" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <h1 className="text-5xl md:text-7xl font-extrabold text-white mb-6 tracking-tight">Admissões</h1>
+          <h1 className="text-5xl md:text-7xl font-extrabold text-white mb-6 tracking-tight">{t('admissions_page.header_title')}</h1>
           <p className="text-xl text-white/80 max-w-2xl mx-auto font-medium leading-relaxed">
-            Dê o primeiro passo para o futuro do seu filho. O nosso processo de admissão é simples e transparente.
+            {t('admissions_page.header_desc')}
           </p>
         </div>
       </section>
@@ -184,14 +186,14 @@ export const AdmissionsPage: React.FC = () => {
         {/* Form Section */}
         <div className="lg:col-span-2">
           <div className="bg-white p-8 md:p-12 rounded-[3rem] shadow-2xl border border-gray-100">
-            <h2 className="text-3xl font-extrabold text-[#003366] mb-10 tracking-tight">Formulário de Candidatura</h2>
+            <h2 className="text-3xl font-extrabold text-[#003366] mb-10 tracking-tight">{t('admissions_page.form_title')}</h2>
             
             <form onSubmit={handleSubmit} className="space-y-10" noValidate>
               {/* Student Info */}
               <div className="space-y-6">
                 <h3 className="text-xl font-bold text-[#E31E24] flex items-center space-x-3">
                   <span className="w-8 h-8 bg-[#E31E24]/10 rounded-full flex items-center justify-center text-sm">1</span>
-                  <span>Informação do Aluno</span>
+                  <span>{t('admissions_page.student_info')}</span>
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
@@ -365,7 +367,7 @@ export const AdmissionsPage: React.FC = () => {
                 type="submit"
                 className="w-full py-5 bg-[#E31E24] text-white font-bold rounded-2xl hover:bg-[#c41a1f] transition-all flex items-center justify-center space-x-3 shadow-xl text-lg"
               >
-                <span>Submeter Candidatura</span>
+                <span>{t('admissions_page.submit')}</span>
                 <Send size={20} />
               </motion.button>
             </form>
@@ -375,7 +377,7 @@ export const AdmissionsPage: React.FC = () => {
         {/* FAQ Section */}
         <div className="space-y-12">
           <div>
-            <h2 className="text-3xl font-extrabold text-[#003366] mb-8 tracking-tight">Perguntas Frequentes</h2>
+            <h2 className="text-3xl font-extrabold text-[#003366] mb-8 tracking-tight">{t('admissions_page.faq_title')}</h2>
             <div className="space-y-4">
               {FAQS.map((faq, idx) => (
                 <div
@@ -409,16 +411,16 @@ export const AdmissionsPage: React.FC = () => {
           {/* Contact Card */}
           <div className="bg-[#003366] p-10 rounded-[2.5rem] text-white shadow-2xl relative overflow-hidden group">
             <div className="absolute top-0 right-0 w-32 h-32 bg-[#E31E24] opacity-20 rounded-full blur-2xl -mr-16 -mt-16 group-hover:opacity-40 transition-opacity" />
-            <h4 className="text-2xl font-bold mb-6 tracking-tight relative z-10">Ainda tem dúvidas?</h4>
+            <h4 className="text-2xl font-bold mb-6 tracking-tight relative z-10">{t('admissions_page.contact_card_title')}</h4>
             <p className="text-white/80 mb-8 leading-relaxed relative z-10">
-              A nossa equipa de admissões está disponível para ajudar em todo o processo.
+              {t('admissions_page.contact_card_desc')}
             </p>
             <motion.button 
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="w-full py-4 bg-white text-[#003366] font-bold rounded-full hover:bg-gray-100 transition-all shadow-xl relative z-10"
             >
-              Contactar Admissões
+              {t('admissions_page.contact_btn')}
             </motion.button>
           </div>
         </div>
