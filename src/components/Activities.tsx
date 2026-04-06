@@ -27,17 +27,7 @@ const iconMap: Record<string, any> = {
 export const Activities: React.FC = () => {
   const { t } = useTranslation();
 
-  const getActivityKey = (id: string): string => {
-    switch (id) {
-      case '1': return 'robotics';
-      case '2': return 'swimming';
-      case '3': return 'arts';
-      case '4': return 'music';
-      case '5': return 'football';
-      case '6': return 'dance';
-      default: return 'robotics';
-    }
-  };
+
 
   return (
     <section className="py-24 bg-white" id="activities">
@@ -74,7 +64,6 @@ export const Activities: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {ACTIVITIES.map((activity, index) => {
             const Icon = iconMap[activity.icon];
-            const key = getActivityKey(String(activity.id));
             return (
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
@@ -91,7 +80,7 @@ export const Activities: React.FC = () => {
                   {t('news.academic')}
                 </span>
                 <h4 className="text-2xl font-bold text-[#003366] mb-4">
-                  {t(`activities.${key}`)}
+                  {activity.name}
                 </h4>
                 <p className="text-gray-600 leading-relaxed">
                   {activity.description}

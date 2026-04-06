@@ -199,7 +199,7 @@ export const Navbar: React.FC = () => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
             transition={{ type: 'spring', damping: 28, stiffness: 220 }}
-            className="fixed inset-0 z-[200] md:hidden bg-[#003366] flex flex-col"
+            className="fixed inset-0 z-[200] md:hidden bg-lia-navy flex flex-col overflow-y-auto"
           >
             {/* Close Button */}
             <button 
