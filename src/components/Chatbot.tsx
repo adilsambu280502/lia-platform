@@ -43,7 +43,7 @@ export const Chatbot: React.FC = () => {
       setMessages([{ id: '1', text: t('chatbot.initial'), sender: 'bot' }]);
       
       try {
-        const apiKey = process.env.GEMINI_API_KEY;
+        const apiKey = (import.meta as any).env.VITE_GEMINI_API_KEY;
         if (!apiKey) {
           console.warn('LIA Assistant: Chave da API Gemini não detetada. O Chatbot vai operar em modo fallback (encaminhamento humano).');
         } else {
